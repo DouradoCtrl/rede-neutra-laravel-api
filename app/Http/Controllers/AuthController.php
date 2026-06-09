@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AuthService;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -14,9 +15,9 @@ class AuthController extends Controller
     /**
      * Realiza o login e retorna o Token Sanctum (Bearer Token)
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $result = $this->authService->login($request->all());
+        $result = $this->authService->login($request->validated());
         
         return response()->json($result, 200);
     }
