@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class UpdateUserRequest extends FormRequest
+{
+    /**
+     * Determina se o usuário está autorizado a fazer esta requisição.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Retorna as regras de validação aplicadas à requisição.
+     */
+    public function rules(): array
+    {
+        $user = $this->route('user');
+        $isSuperAdmin = $this->user()->role === 'super_admin';
+        $allowedRoles = $isSuperAdmin ? ['super_admin', 'admin', 'user'] : ['admin', 'user'];
+
+        return [
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['sometimes', 'string', 'min:8'],
+            'role' => ['sometimes', Rule::in($allowedRoles)],
+            'telecom_group_id' => $isSuperAdmin ? ['nullable', 'exists:telecom_groups,id'] : ['prohibited']
+        ];
+    }
+}
