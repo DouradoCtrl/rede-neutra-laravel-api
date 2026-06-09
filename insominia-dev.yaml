@@ -1,0 +1,208 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: rede-neutra-laravel-api
+meta:
+  id: wrk_88e3fd9568364f73adc0c074e42c5cdf
+  created: 1780942509744
+  modified: 1780942509744
+  description: ""
+collection:
+  - name: Auth
+    meta:
+      id: fld_7ea1d5a0bb304931ba884f575d1e943f
+      created: 1781012743069
+      modified: 1781012775592
+      sortKey: -1781012769087
+      description: ""
+    children:
+      - url: http://localhost/api/v1/auth/login
+        name: "[Auth] login"
+        meta:
+          id: req_2bd3c9b99e2a495899bc62f25ff7c6d7
+          created: 1780942535922
+          modified: 1781033029759
+          isPrivate: false
+          description: ""
+          sortKey: -1781012750540
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "admin@kayroslink.com.br", 
+            	"password": "password",
+            	"device_name": "Insomnia API"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/api/v1/auth/logout
+        name: "[Auth] logout"
+        meta:
+          id: req_4252860d63ce47e2a67ef2d17bd96750
+          created: 1781012246551
+          modified: 1781031445479
+          isPrivate: false
+          description: ""
+          sortKey: -1781012750490
+        method: POST
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: 15|Zd7gDF4LLKHRDqEpUIfBliiKTIwvKDyft4EJ7zOc6bd594de
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/api/v1/auth/me
+        name: "[Auth] profile me"
+        meta:
+          id: req_15881aef659f40c1a416338326426e25
+          created: 1781012541224
+          modified: 1781031458701
+          isPrivate: false
+          description: ""
+          sortKey: -1781012750440
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: 16|DJMIT4DUFlplaplbxes1DJ4AXCB2IIuA7b1MRm5d57559be0
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Users
+    meta:
+      id: fld_44fa53cb3da4496ca5fededf019fa9a2
+      created: 1781012768987
+      modified: 1781012768987
+      sortKey: -1781012768987
+      description: ""
+    children:
+      - url: http://localhost/api/v1/users/
+        name: "[User] index"
+        meta:
+          id: req_10c690c41f3a4baaa56cf16fb0e16752
+          created: 1781013278920
+          modified: 1781033161873
+          isPrivate: false
+          description: ""
+          sortKey: -1781013285902
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          disabled: false
+          token: 21|dumo1IlPZWsBfynamoTFRD6fYRFRkzRJ90JBawcuaea5f057
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/api/v1/users/
+        name: "[User] Create User"
+        meta:
+          id: req_e8c7bc503ee3468caf400234ceb33d67
+          created: 1781033567271
+          modified: 1781034045841
+          isPrivate: false
+          description: ""
+          sortKey: -1781013018221
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Samuel",
+            	"email": "samueldourado.dev@proton.me",
+            	"password": "Dourado@27",
+            	"role": "admin",
+            	"telecom_group_id": null
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          disabled: false
+          token: 21|dumo1IlPZWsBfynamoTFRD6fYRFRkzRJ90JBawcuaea5f057
+          prefix: Bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_44db1f50dd9098c2d1082ef0beab004d61e9d285
+    created: 1780942509754
+    modified: 1780942509754
+environments:
+  name: Base Environment
+  meta:
+    id: env_44db1f50dd9098c2d1082ef0beab004d61e9d285
+    created: 1780942509753
+    modified: 1780942509753
+    isPrivate: false
