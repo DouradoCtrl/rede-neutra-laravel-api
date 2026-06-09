@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\TelecomGroup;
 use Illuminate\Http\Request;
 use App\Services\TelecomGroupService;
+use App\Http\Requests\StoreTelecomGroupRequest;
+use App\Http\Requests\UpdateTelecomGroupRequest;
+use App\Http\Resources\TelecomGroupResource;
 
 class TelecomGroupController extends Controller
 {
@@ -28,33 +31,47 @@ class TelecomGroupController extends Controller
     public function index()
     {
         $this->authorizeSuperAdmin();
-        return response()->json($this->telecomGroupService->getAll(), 200);
+        
+        return TelecomGroupResource::collection($this->telecomGroupService->getAll())
+            ->response()
+            ->setStatusCode(200);
     }
 
-    public function store(Request $request)
+    public function store(StoreTelecomGroupRequest $request)
     {
         $this->authorizeSuperAdmin();
-        $group = $this->telecomGroupService->createGroup($request->all());
-        return response()->json($group, 201);
+        $group = $this->telecomGroupService->createGroup($request->validated());
+        
+        return (new TelecomGroupResource($group))
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function show(TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
-        return response()->json($this->telecomGroupService->getGroup($telecomGroup), 200);
+        $groupData = $this->telecomGroupService->getGroup($telecomGroup);
+        
+        return (new TelecomGroupResource($groupData))
+            ->response()
+            ->setStatusCode(200);
     }
 
-    public function update(Request $request, TelecomGroup $telecomGroup)
+    public function update(UpdateTelecomGroupRequest $request, TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
-        $updatedGroup = $this->telecomGroupService->updateGroup($telecomGroup, $request->all());
-        return response()->json($updatedGroup, 200);
+        $updatedGroup = $this->telecomGroupService->updateGroup($telecomGroup, $request->validated());
+        
+        return (new TelecomGroupResource($updatedGroup))
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function destroy(TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
         $this->telecomGroupService->deleteGroup($telecomGroup);
+        
         return response()->json(['message' => 'Grupo Telecom removido com sucesso.'], 200);
     }
 }
