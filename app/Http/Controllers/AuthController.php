@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         $result = $this->authService->login($request->all());
         
-        return response()->json($result);
+        return response()->json($result, 200);
     }
 
     /**
@@ -30,7 +30,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Deslogado com sucesso'
-        ]);
+        ], 200);
     }
 
     /**
@@ -40,6 +40,6 @@ class AuthController extends Controller
     {
         return response()->json([
             'user' => $request->user()->load('telecomGroup')
-        ]);
+        ], 200);
     }
 }
