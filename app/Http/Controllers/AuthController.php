@@ -21,9 +21,10 @@ class AuthController extends Controller
     {
         $result = $this->authService->login($request->validated());
         
-        return (new LoginResource($result))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new LoginResource($result),
+            'Login realizado com sucesso.'
+        );
     }
 
     /**
@@ -33,9 +34,10 @@ class AuthController extends Controller
     {
         $this->authService->logout($request->user());
 
-        return response()->json([
-            'message' => 'Deslogado com sucesso'
-        ], 200);
+        return $this->successResponse(
+            null,
+            'Deslogado com sucesso'
+        );
     }
 
     /**
@@ -45,8 +47,9 @@ class AuthController extends Controller
     {
         $user = $request->user()->load('telecomGroup');
         
-        return (new UserResource($user))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new UserResource($user),
+            'Dados do usuário autenticado obtidos com sucesso.'
+        );
     }
 }
