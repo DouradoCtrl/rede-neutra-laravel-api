@@ -23,7 +23,8 @@ class AuthController extends Controller
         
         return $this->successResponse(
             new LoginResource($result),
-            'Login realizado com sucesso.'
+            'Login realizado com sucesso.',
+            200
         );
     }
 
@@ -36,7 +37,8 @@ class AuthController extends Controller
 
         return $this->successResponse(
             null,
-            'Deslogado com sucesso'
+            'Deslogado com sucesso',
+            200
         );
     }
 
@@ -49,7 +51,8 @@ class AuthController extends Controller
         
         return $this->successResponse(
             new UserResource($user),
-            'Dados do usuário autenticado obtidos com sucesso.'
+            'Dados do usuário autenticado obtidos com sucesso.',
+            200
         );
     }
 }
