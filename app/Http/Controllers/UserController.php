@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Services\UserService;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -16,33 +19,47 @@ class UserController extends Controller
     public function index(Request $request)
     {
         Gate::authorize('viewAny', User::class);
-        return response()->json($this->userService->getAll(), 200);
+        
+        return UserResource::collection($this->userService->getAll())
+            ->response()
+            ->setStatusCode(200);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         Gate::authorize('create', User::class);
-        $user = $this->userService->createUser($request->all(), $request->user());
-        return response()->json($user, 201);
+        $user = $this->userService->createUser($request->validated(), $request->user());
+        
+        return (new UserResource($user))
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function show(User $user)
     {
         Gate::authorize('view', $user);
-        return response()->json($this->userService->getUser($user), 200);
+        $userData = $this->userService->getUser($user);
+        
+        return (new UserResource($userData))
+            ->response()
+            ->setStatusCode(200);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         Gate::authorize('update', $user);
-        $updatedUser = $this->userService->updateUser($user, $request->all(), $request->user());
-        return response()->json($updatedUser, 200);
+        $updatedUser = $this->userService->updateUser($user, $request->validated(), $request->user());
+        
+        return (new UserResource($updatedUser))
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function destroy(User $user)
     {
         Gate::authorize('delete', $user);
         $this->userService->deleteUser($user);
+        
         return response()->json(['message' => 'Usuário deletado com sucesso.'], 200);
     }
 }
