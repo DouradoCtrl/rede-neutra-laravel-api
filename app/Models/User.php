@@ -11,13 +11,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\BelongsToTelecomGroup;
 
 #[Fillable(['name', 'email', 'password', 'telecom_group_id', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, \App\Traits\BelongsToTelecomGroup;
+    use HasApiTokens, HasFactory, Notifiable, BelongsToTelecomGroup;
 
     /**
      * Get the telecom group that owns the user.
