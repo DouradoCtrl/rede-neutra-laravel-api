@@ -13,10 +13,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         Gate::authorize('viewAny', User::class);
-        
-        // O global scope (Trait) fará a mágica: 
-        // - Se Kayros: retorna todos.
-        // - Se Parceiro: retorna apenas os do próprio grupo.
         return response()->json(User::with('telecomGroup')->get());
     }
 
@@ -26,7 +22,6 @@ class UserController extends Controller
 
         $isSuperAdmin = auth()->user()->role === 'super_admin';
 
-        // Prevenção de escalonamento de privilégio
         $allowedRoles = $isSuperAdmin 
             ? ['super_admin', 'admin', 'user'] 
             : ['admin', 'user'];
