@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\LoginResource;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -19,7 +21,9 @@ class AuthController extends Controller
     {
         $result = $this->authService->login($request->validated());
         
-        return response()->json($result, 200);
+        return (new LoginResource($result))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -39,8 +43,10 @@ class AuthController extends Controller
      */
     public function me(Request $request)
     {
-        return response()->json([
-            'user' => $request->user()->load('telecomGroup')
-        ], 200);
+        $user = $request->user()->load('telecomGroup');
+        
+        return (new UserResource($user))
+            ->response()
+            ->setStatusCode(200);
     }
 }
