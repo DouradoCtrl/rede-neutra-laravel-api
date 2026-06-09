@@ -4,22 +4,15 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
     /**
-     * Valida as credenciais e gera o Token Sanctum
+     * Valida as credenciais (já limpas) e gera o Token Sanctum
      */
-    public function login(array $data)
+    public function login(array $validated)
     {
-        $validated = Validator::make($data, [    
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'device_name' => ['string', 'nullable']
-        ])->validate();
-
         $user = User::where('email', $validated['email'])->first();
 
         if (! $user || ! Hash::check($validated['password'], $user->password)) {
