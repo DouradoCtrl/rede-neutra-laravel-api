@@ -20,9 +20,10 @@ class UserController extends Controller
     {
         Gate::authorize('viewAny', User::class);
         
-        return UserResource::collection($this->userService->getAll())
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            UserResource::collection($this->userService->getAll()),
+            'Lista de usuários obtida com sucesso.'
+        );
     }
 
     public function store(StoreUserRequest $request)
@@ -30,9 +31,11 @@ class UserController extends Controller
         Gate::authorize('create', User::class);
         $user = $this->userService->createUser($request->validated(), $request->user());
         
-        return (new UserResource($user))
-            ->response()
-            ->setStatusCode(201);
+        return $this->successResponse(
+            new UserResource($user),
+            'Usuário criado com sucesso.',
+            201
+        );
     }
 
     public function show(User $user)
@@ -40,9 +43,10 @@ class UserController extends Controller
         Gate::authorize('view', $user);
         $userData = $this->userService->getUser($user);
         
-        return (new UserResource($userData))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new UserResource($userData),
+            'Usuário obtido com sucesso.'
+        );
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -50,9 +54,10 @@ class UserController extends Controller
         Gate::authorize('update', $user);
         $updatedUser = $this->userService->updateUser($user, $request->validated(), $request->user());
         
-        return (new UserResource($updatedUser))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new UserResource($updatedUser),
+            'Usuário atualizado com sucesso.'
+        );
     }
 
     public function destroy(User $user)
@@ -60,6 +65,9 @@ class UserController extends Controller
         Gate::authorize('delete', $user);
         $this->userService->deleteUser($user);
         
-        return response()->json(['message' => 'Usuário deletado com sucesso.'], 200);
+        return $this->successResponse(
+            null,
+            'Usuário deletado com sucesso.'
+        );
     }
 }
