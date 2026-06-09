@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         Gate::authorize('viewAny', User::class);
-        return response()->json($this->userService->getAll());
+        return response()->json($this->userService->getAll(), 200);
     }
 
     public function store(Request $request)
@@ -29,20 +29,20 @@ class UserController extends Controller
     public function show(User $user)
     {
         Gate::authorize('view', $user);
-        return response()->json($this->userService->getUser($user));
+        return response()->json($this->userService->getUser($user), 200);
     }
 
     public function update(Request $request, User $user)
     {
         Gate::authorize('update', $user);
         $updatedUser = $this->userService->updateUser($user, $request->all(), $request->user());
-        return response()->json($updatedUser);
+        return response()->json($updatedUser, 200);
     }
 
     public function destroy(User $user)
     {
         Gate::authorize('delete', $user);
         $this->userService->deleteUser($user);
-        return response()->json(['message' => 'Usuário deletado com sucesso.']);
+        return response()->json(['message' => 'Usuário deletado com sucesso.'], 200);
     }
 }
