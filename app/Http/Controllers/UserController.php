@@ -22,7 +22,8 @@ class UserController extends Controller
         
         return $this->successResponse(
             UserResource::collection($this->userService->getAll()),
-            'Lista de usuários obtida com sucesso.'
+            'Lista de usuários obtida com sucesso.',
+            200
         );
     }
 
@@ -45,7 +46,8 @@ class UserController extends Controller
         
         return $this->successResponse(
             new UserResource($userData),
-            'Usuário obtido com sucesso.'
+            'Usuário obtido com sucesso.',
+            200
         );
     }
 
@@ -56,7 +58,8 @@ class UserController extends Controller
         
         return $this->successResponse(
             new UserResource($updatedUser),
-            'Usuário atualizado com sucesso.'
+            'Usuário atualizado com sucesso.',
+            200
         );
     }
 
@@ -67,7 +70,8 @@ class UserController extends Controller
         
         return $this->successResponse(
             null,
-            'Usuário deletado com sucesso.'
+            'Usuário deletado com sucesso.',
+            200
         );
     }
 }
