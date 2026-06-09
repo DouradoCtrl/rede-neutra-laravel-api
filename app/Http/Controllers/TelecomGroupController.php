@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\TelecomGroup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Services\TelecomGroupService;
 
 class TelecomGroupController extends Controller
 {
+    public function __construct(private TelecomGroupService $telecomGroupService)
+    {
+    }
+
     /**
      * Valida se o usuário autenticado é um Super Administrador da Kayros Link.
      * Caso contrário, bloqueia o acesso com um erro 403 (Forbidden).
@@ -24,57 +28,33 @@ class TelecomGroupController extends Controller
     public function index()
     {
         $this->authorizeSuperAdmin();
-        return response()->json(TelecomGroup::all());
+        return response()->json($this->telecomGroupService->getAll());
     }
 
     public function store(Request $request)
     {
         $this->authorizeSuperAdmin();
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:telecom_groups',
-            'active' => 'boolean'
-        ]);
-
-        $group = TelecomGroup::create([
-            'name' => $request->name,
-            'slug' => $request->slug ?? Str::slug($request->name),
-            'active' => $request->active ?? true,
-        ]);
-
+        $group = $this->telecomGroupService->createGroup($request->all());
         return response()->json($group, 201);
     }
 
     public function show(TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
-        // Opcional: carrega os usuários associados a esse grupo
-        return response()->json($telecomGroup->load('users'));
+        return response()->json($this->telecomGroupService->getGroup($telecomGroup));
     }
 
     public function update(Request $request, TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
-
-        $request->validate([
-            'name' => 'string|max:255',
-            'slug' => 'string|max:255|unique:telecom_groups,slug,' . $telecomGroup->id,
-            'active' => 'boolean'
-        ]);
-
-        if ($request->has('name')) $telecomGroup->name = $request->name;
-        if ($request->has('slug')) $telecomGroup->slug = $request->slug;
-        if ($request->has('active')) $telecomGroup->active = $request->active;
-        $telecomGroup->save();
-
-        return response()->json($telecomGroup);
+        $updatedGroup = $this->telecomGroupService->updateGroup($telecomGroup, $request->all());
+        return response()->json($updatedGroup);
     }
 
     public function destroy(TelecomGroup $telecomGroup)
     {
         $this->authorizeSuperAdmin();
-        $telecomGroup->delete();
+        $this->telecomGroupService->deleteGroup($telecomGroup);
         return response()->json(['message' => 'Grupo Telecom removido com sucesso.']);
     }
 }
