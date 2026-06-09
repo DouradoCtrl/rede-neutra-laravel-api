@@ -34,7 +34,8 @@ class TelecomGroupController extends Controller
         
         return $this->successResponse(
             TelecomGroupResource::collection($this->telecomGroupService->getAll()),
-            'Lista de grupos telecom obtida com sucesso.'
+            'Lista de grupos telecom obtida com sucesso.',
+            200
         );
     }
 
@@ -57,7 +58,8 @@ class TelecomGroupController extends Controller
         
         return $this->successResponse(
             new TelecomGroupResource($groupData),
-            'Grupo telecom obtido com sucesso.'
+            'Grupo telecom obtido com sucesso.',
+            200
         );
     }
 
@@ -68,7 +70,8 @@ class TelecomGroupController extends Controller
         
         return $this->successResponse(
             new TelecomGroupResource($updatedGroup),
-            'Grupo telecom atualizado com sucesso.'
+            'Grupo telecom atualizado com sucesso.',
+            200
         );
     }
 
@@ -79,7 +82,8 @@ class TelecomGroupController extends Controller
         
         return $this->successResponse(
             null,
-            'Grupo Telecom removido com sucesso.'
+            'Grupo Telecom removido com sucesso.',
+            200
         );
     }
 }
