@@ -32,9 +32,10 @@ class TelecomGroupController extends Controller
     {
         $this->authorizeSuperAdmin();
         
-        return TelecomGroupResource::collection($this->telecomGroupService->getAll())
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            TelecomGroupResource::collection($this->telecomGroupService->getAll()),
+            'Lista de grupos telecom obtida com sucesso.'
+        );
     }
 
     public function store(StoreTelecomGroupRequest $request)
@@ -42,9 +43,11 @@ class TelecomGroupController extends Controller
         $this->authorizeSuperAdmin();
         $group = $this->telecomGroupService->createGroup($request->validated());
         
-        return (new TelecomGroupResource($group))
-            ->response()
-            ->setStatusCode(201);
+        return $this->successResponse(
+            new TelecomGroupResource($group),
+            'Grupo telecom criado com sucesso.',
+            201
+        );
     }
 
     public function show(TelecomGroup $telecomGroup)
@@ -52,9 +55,10 @@ class TelecomGroupController extends Controller
         $this->authorizeSuperAdmin();
         $groupData = $this->telecomGroupService->getGroup($telecomGroup);
         
-        return (new TelecomGroupResource($groupData))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new TelecomGroupResource($groupData),
+            'Grupo telecom obtido com sucesso.'
+        );
     }
 
     public function update(UpdateTelecomGroupRequest $request, TelecomGroup $telecomGroup)
@@ -62,9 +66,10 @@ class TelecomGroupController extends Controller
         $this->authorizeSuperAdmin();
         $updatedGroup = $this->telecomGroupService->updateGroup($telecomGroup, $request->validated());
         
-        return (new TelecomGroupResource($updatedGroup))
-            ->response()
-            ->setStatusCode(200);
+        return $this->successResponse(
+            new TelecomGroupResource($updatedGroup),
+            'Grupo telecom atualizado com sucesso.'
+        );
     }
 
     public function destroy(TelecomGroup $telecomGroup)
@@ -72,6 +77,9 @@ class TelecomGroupController extends Controller
         $this->authorizeSuperAdmin();
         $this->telecomGroupService->deleteGroup($telecomGroup);
         
-        return response()->json(['message' => 'Grupo Telecom removido com sucesso.'], 200);
+        return $this->successResponse(
+            null,
+            'Grupo Telecom removido com sucesso.'
+        );
     }
 }
