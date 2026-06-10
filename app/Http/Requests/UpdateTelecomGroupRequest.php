@@ -21,9 +21,9 @@ class UpdateTelecomGroupRequest extends FormRequest
     {
         $telecomGroup = $this->route('telecom_group');
         return [
-            'name' => ['sometimes', 'string', 'max:255'],
-            'slug' => ['sometimes', 'string', 'max:255', 'unique:telecom_groups,slug,' . $telecomGroup->id],
-            'active' => ['boolean']
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', 'unique:telecom_groups,slug,' . $telecomGroup->id],
+            'active' => ['required', 'boolean'],
         ];
     }
 }
