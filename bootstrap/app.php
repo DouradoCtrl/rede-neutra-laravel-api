@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -85,6 +86,26 @@ return Application::configure(basePath: dirname(__DIR__))
                 return $responder->errorResponse(
                     'Usuário não autenticado.',
                     401
+                );
+            }
+        });
+
+        $exceptions->render(function (AccessDeniedHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                $responder = new class {
+                    use ApiResponses {
+                        errorResponse as public;
+                    }
+                };
+
+                $message = $e->getMessage();
+                if ($message === 'This action is unauthorized.') {
+                    $message = 'Esta ação não é autorizada.';
+                }
+
+                return $responder->errorResponse(
+                    $message,
+                    403
                 );
             }
         });
