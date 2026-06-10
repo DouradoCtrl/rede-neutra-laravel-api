@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Services\ProfileService;
 use App\Http\Resources\UserResource;
 
@@ -22,6 +23,20 @@ class ProfileController extends Controller
         return $this->successResponse(
             new UserResource($updatedUser),
             'Perfil atualizado com sucesso.',
+            200
+        );
+    }
+
+    /**
+     * Update the authenticated user's password.
+     */
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $this->profileService->updatePassword($request->user(), $request->validated('password'));
+
+        return $this->successResponse(
+            null,
+            'Senha atualizada com sucesso.',
             200
         );
     }
