@@ -3,17 +3,22 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
+    public function __construct(
+        protected UserRepository $userRepository
+    ) {}
+
     /**
      * Valida as credenciais (já limpas) e gera o Token Sanctum
      */
     public function login(array $validated)
     {
-        $user = User::where('email', $validated['email'])->first();
+        $user = $this->userRepository->findByEmail($validated['email']);
 
         if (! $user || ! Hash::check($validated['password'], $user->password)) {
             throw ValidationException::withMessages([
