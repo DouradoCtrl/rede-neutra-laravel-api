@@ -3,18 +3,23 @@
 namespace App\Services;
 
 use App\Models\TelecomGroup;
+use App\Repositories\TelecomGroupRepository;
 use Illuminate\Support\Str;
 
 class TelecomGroupService
 {
+    public function __construct(
+        protected TelecomGroupRepository $telecomGroupRepository
+    ) {}
+
     public function getAll()
     {
-        return TelecomGroup::all();
+        return $this->telecomGroupRepository->getAll();
     }
 
     public function createGroup(array $validated)
     {
-        return TelecomGroup::create([
+        return $this->telecomGroupRepository->create([
             'name' => $validated['name'],
             'slug' => $validated['slug'] ?? Str::slug($validated['name']),
             'active' => $validated['active'] ?? true,
@@ -28,16 +33,20 @@ class TelecomGroupService
 
     public function updateGroup(TelecomGroup $telecomGroup, array $validated)
     {
-        if (isset($validated['name'])) $telecomGroup->name = $validated['name'];
-        if (isset($validated['slug'])) $telecomGroup->slug = $validated['slug'];
-        if (isset($validated['active'])) $telecomGroup->active = $validated['active'];
-        $telecomGroup->save();
+        $data = [];
+        if (isset($validated['name'])) $data['name'] = $validated['name'];
+        if (isset($validated['slug'])) $data['slug'] = $validated['slug'];
+        if (isset($validated['active'])) $data['active'] = $validated['active'];
+        
+        if (!empty($data)) {
+            $this->telecomGroupRepository->update($telecomGroup, $data);
+        }
 
         return $telecomGroup;
     }
 
     public function deleteGroup(TelecomGroup $telecomGroup)
     {
-        $telecomGroup->delete();
+        $this->telecomGroupRepository->delete($telecomGroup);
     }
 }
