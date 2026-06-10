@@ -13,8 +13,7 @@ use App\Http\Resources\UserResource;
 class UserController extends Controller
 {
     public function __construct(
-        private UserService $userService, 
-        private AuthService $authService
+        private UserService $userService,
         )
     {
     }
