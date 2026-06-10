@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileService
 {
@@ -14,5 +15,15 @@ class ProfileService
         $user->update($data);
 
         return $user->load('telecomGroup');
+    }
+
+    /**
+     * Update the authenticated user's password.
+     */
+    public function updatePassword(User $user, string $newPassword): void
+    {
+        $user->update([
+            'password' => Hash::make($newPassword),
+        ]);
     }
 }
