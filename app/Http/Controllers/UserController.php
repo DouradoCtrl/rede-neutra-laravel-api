@@ -12,7 +12,9 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
-    public function __construct(private UserService $userService)
+    public function __construct(
+        private UserService $userService,
+        )
     {
     }
 
@@ -54,7 +56,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         Gate::authorize('update', $user);
-        $updatedUser = $this->userService->updateUser($user, $request->validated(), $request->user());
+        $updatedUser = $this->userService->updateUser($user, $request->validated());
         
         return $this->successResponse(
             new UserResource($updatedUser),

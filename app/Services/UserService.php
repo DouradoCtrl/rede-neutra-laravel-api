@@ -26,7 +26,7 @@ class UserService
         return $user->load('telecomGroup');
     }
 
-    public function updateUser(User $user, array $validated, User $authUser)
+    public function updateUser(User $user, array $validated)
     {
         if (isset($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);

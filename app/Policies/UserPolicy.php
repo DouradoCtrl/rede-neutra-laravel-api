@@ -26,8 +26,7 @@ class UserPolicy
             return $user->telecom_group_id === $model->telecom_group_id;
         }
 
-        // Usuários comuns podem ver apenas a si mesmos
-        return $user->id === $model->id;
+        return false;
     }
 
     /**
@@ -53,8 +52,7 @@ class UserPolicy
             return $user->telecom_group_id === $model->telecom_group_id;
         }
 
-        // Um usuário comum só pode alterar a própria conta (senha, por ex)
-        return $user->id === $model->id;
+        return false;
     }
 
     /**
@@ -62,12 +60,18 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        if ($user->role === 'super_admin') return true;
+        // Ninguém pode se auto-excluir
+        if ($user->id === $model->id) {
+            return false;
+        }
+
+        if ($user->role === 'super_admin') {
+            return true; // Pode excluir outros super_admin, admin ou user
+        }
 
         if ($user->role === 'admin') {
-            // Admin não pode excluir um super admin nem a si próprio
+            // Admin não pode excluir um super admin (hierarquia acima)
             if ($model->role === 'super_admin') return false;
-            if ($user->id === $model->id) return false;
 
             return $user->telecom_group_id === $model->telecom_group_id;
         }
