@@ -3,20 +3,25 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    public function __construct(
+        protected UserRepository $userRepository
+    ) {}
+
     public function getAll()
     {
-        return User::with('telecomGroup')->get();
+        return $this->userRepository->getAllWithGroup();
     }
 
     public function createUser(array $validated, User $authUser)
     {
         $validated['password'] = Hash::make($validated['password']);
         
-        $user = User::create($validated);
+        $user = $this->userRepository->create($validated);
 
         return $user->load('telecomGroup');
     }
@@ -32,13 +37,13 @@ class UserService
             $validated['password'] = Hash::make($validated['password']);
         }
 
-        $user->update($validated);
+        $this->userRepository->update($user, $validated);
 
         return $user->fresh('telecomGroup');
     }
 
     public function deleteUser(User $user)
     {
-        $user->delete();
+        $this->userRepository->delete($user);
     }
 }
