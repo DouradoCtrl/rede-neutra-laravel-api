@@ -3,16 +3,21 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileService
 {
+    public function __construct(
+        protected UserRepository $userRepository
+    ) {}
+
     /**
      * Update the profile of the authenticated user.
      */
     public function updateProfile(User $user, array $data): User
     {
-        $user->update($data);
+        $this->userRepository->update($user, $data);
 
         return $user->load('telecomGroup');
     }
@@ -22,8 +27,6 @@ class ProfileService
      */
     public function updatePassword(User $user, string $newPassword): void
     {
-        $user->update([
-            'password' => Hash::make($newPassword),
-        ]);
+        $this->userRepository->updatePassword($user, Hash::make($newPassword));
     }
 }
