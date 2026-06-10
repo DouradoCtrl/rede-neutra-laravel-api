@@ -20,7 +20,7 @@ collection:
         meta:
           id: req_2bd3c9b99e2a495899bc62f25ff7c6d7
           created: 1780942535922
-          modified: 1781115114873
+          modified: 1781120431923
           isPrivate: false
           description: ""
           sortKey: -1781012750540
@@ -29,7 +29,7 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"email": "kayros@oficial.com", 
+            	"email": "noc@kayroslink.com", 
             	"password": "but1709vd",
             	"device_name": "Insomnia API"
             }
@@ -85,7 +85,7 @@ collection:
         meta:
           id: req_15881aef659f40c1a416338326426e25
           created: 1781012541224
-          modified: 1781115126665
+          modified: 1781120443411
           isPrivate: false
           description: ""
           sortKey: -1781012750440
@@ -102,7 +102,7 @@ collection:
             disabled: false
         authentication:
           type: bearer
-          token: 43|LlCYHjHVAdVW52WuYz3rQbLBBLRCYckK25Z8fDjw060c2dd1
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -117,7 +117,7 @@ collection:
         meta:
           id: req_8e4006c8781041b6a0fe339708e3c968
           created: 1781112994331
-          modified: 1781115153779
+          modified: 1781120451540
           isPrivate: false
           description: ""
           sortKey: -1780685967783.5
@@ -139,7 +139,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 43|LlCYHjHVAdVW52WuYz3rQbLBBLRCYckK25Z8fDjw060c2dd1
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -154,7 +154,7 @@ collection:
         meta:
           id: req_4e763889a5bf451d80338eb2abf466fc
           created: 1781114802667
-          modified: 1781116156245
+          modified: 1781120468642
           isPrivate: false
           description: ""
           sortKey: -1780522576455.25
@@ -163,9 +163,9 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"current_password": "but1709vd@",
-            	"password": "but1709vd",
-            	"password_confirmation": "but1709vd"
+            	"current_password": "but1709vd",
+            	"password": "but1709vd@",
+            	"password_confirmation": "but1709vd@"
             }
         headers:
           - name: Content-Type
@@ -177,7 +177,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 42|FN4xlf2nqalGbOYa7jtuINMXk8cLktCiBFI8K8pKdc60d6e5
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -200,7 +200,7 @@ collection:
         meta:
           id: req_10c690c41f3a4baaa56cf16fb0e16752
           created: 1781013278920
-          modified: 1781110217073
+          modified: 1781120476382
           isPrivate: false
           description: ""
           sortKey: -1781013285902
@@ -218,7 +218,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 40|UNK9O4lLIwHRUI1RGp9fyUc9sX7g5iFM2Mkmahq23509f5b0
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -233,7 +233,7 @@ collection:
         meta:
           id: req_e8c7bc503ee3468caf400234ceb33d67
           created: 1781033567271
-          modified: 1781113530311
+          modified: 1781120532410
           isPrivate: false
           description: ""
           sortKey: -1781013018221
@@ -243,7 +243,7 @@ collection:
           text: |-
             {
             	"name": "kayros teste",
-            	"email": "kayros2@teste.com",
+            	"email": "noc1@kayroslink.com",
             	"password": "but1709vd",
             	"role": "admin",
             	"telecom_group_id": null
@@ -258,7 +258,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 42|FN4xlf2nqalGbOYa7jtuINMXk8cLktCiBFI8K8pKdc60d6e5
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -273,7 +273,7 @@ collection:
         meta:
           id: req_096b2112a01c44aa89ff4027ece45760
           created: 1781093172267
-          modified: 1781110520925
+          modified: 1781120543290
           isPrivate: false
           description: ""
           sortKey: -1781012884380.5
@@ -291,7 +291,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 41|BYBEncGMBjEhVJaBj65YtAkL1LLQL81HxUzWEiehad154c6d
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -306,7 +306,7 @@ collection:
         meta:
           id: req_30df5e2af00b4e20bcb8e606c4eaf607
           created: 1781093433025
-          modified: 1781114154291
+          modified: 1781120549724
           isPrivate: false
           description: ""
           sortKey: -1781012817460.25
@@ -331,7 +331,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 42|FN4xlf2nqalGbOYa7jtuINMXk8cLktCiBFI8K8pKdc60d6e5
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
@@ -341,12 +341,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: http://localhost/api/v1/users/12
+      - url: http://localhost/api/v1/users/14
         name: "[User] Delete User"
         meta:
           id: req_4f787ad11b1e4a68959af36414914d7a
           created: 1781095671636
-          modified: 1781110421031
+          modified: 1781120596403
           isPrivate: false
           description: ""
           sortKey: -1781012784000.125
@@ -364,7 +364,7 @@ collection:
         authentication:
           type: bearer
           disabled: false
-          token: 41|BYBEncGMBjEhVJaBj65YtAkL1LLQL81HxUzWEiehad154c6d
+          token: 44|uPrT9pkV9dAaDGbfVRnv6xroRuQ0jMgDvdI5IPVvf7495d68
           prefix: Bearer
         settings:
           renderRequestBody: true
