@@ -16,6 +16,8 @@ Documentação retrospectiva do CRUD de grupos de telecomunicações corporativo
 
 **Armazenamento (Storage)**: PostgreSQL (persistência de registros cadastrais na tabela `telecom_groups`).
 
+**Testes**: Testes automatizados via Pest PHP no backend Laravel cobrindo o CRUD de grupos de telecom e restrições de permissão para perfis não super_admin, além de validação manual.
+
 **Plataforma Alvo**: API REST com dados em JSON consumida de forma desacoplada por clientes web autorizados (Super Admin).
 
 **Restrições (Constraints)**: Bloqueio estrito no nível do controller para garantir que perfis de privilégio inferior a `super_admin` recebam HTTP 403 Forbidden antes do processamento de banco de dados.
@@ -71,3 +73,20 @@ laravel/
 ```
 
 **Decisão de Estrutura**: A arquitetura obedece às convenções do Laravel com injeção de dependências do Service/Repository no Controller, mantendo a responsabilidade isolada de cada camada.
+
+## Testes Automatizados
+
+Foram criados testes automatizados de funcionalidade usando Pest PHP no backend Laravel:
+* **Arquivo de Testes**: [TelecomGroupTest.php](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/laravel/tests/Feature/TelecomGroupTest.php)
+* **Cenários testados**:
+  * Listagem de grupos de telecomunicações permitida para `super_admin`.
+  * Bloqueio de listagem de grupos para cargos `admin` e `user` (HTTP 403).
+  * Criação de grupo de telecomunicações por `super_admin` com autogeração de slug baseada no nome.
+  * Criação de grupo de telecomunicações por `super_admin` com slug personalizado enviado na requisição.
+  * Bloqueio de criação de grupos para perfis não autorizados (HTTP 403).
+  * Visualização de detalhes de grupo telecom por `super_admin`.
+  * Bloqueio de visualização de grupo telecom para perfis não autorizados (HTTP 403).
+  * Atualização de grupo telecom por `super_admin` (com todos os campos requeridos conforme `UpdateTelecomGroupRequest`).
+  * Bloqueio de atualização de grupo telecom para perfis não autorizados (HTTP 403).
+  * Remoção física do grupo telecom por `super_admin`.
+  * Bloqueio de remoção de grupo telecom para perfis não autorizados (HTTP 403).

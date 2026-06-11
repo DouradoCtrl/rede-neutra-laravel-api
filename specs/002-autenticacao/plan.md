@@ -16,7 +16,7 @@ Documentação retrospectiva do sistema de autenticação por tokens seguros par
 
 **Armazenamento (Storage)**: PostgreSQL (persistência física de usuários e tokens pessoais na tabela `personal_access_tokens`).
 
-**Testes**: Testes de integração automatizados via Pest/PHPUnit no backend (a serem abordados em specs futuras) e verificação manual das assinaturas dos endpoints.
+**Testes**: Testes automatizados via Pest PHP no backend Laravel cobrindo os fluxos de autenticação, além de verificação manual.
 
 **Plataforma Alvo**: API REST consumida por navegadores modernos ou SPAs/Next.js.
 
@@ -75,3 +75,15 @@ laravel/
 ```
 
 **Decisão de Estrutura**: A arquitetura obedece rigorosamente às convenções do Laravel com injeção de dependências do Service/Repository no Controller de autenticação, mantendo a responsabilidade isolada de cada camada.
+
+## Testes Automatizados
+
+Foram criados testes automatizados de funcionalidade usando Pest PHP no backend Laravel:
+* **Arquivo de Testes**: [AuthTest.php](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/laravel/tests/Feature/AuthTest.php)
+* **Cenários testados**:
+  * Login com credenciais válidas (retorno do token bearer e estrutura JSON padrão).
+  * Login com credenciais inválidas (falha de validação com HTTP 422).
+  * Exigência de campos obrigatórios no login.
+  * Obtenção de dados de perfil autenticado no endpoint `/profile/me`.
+  * Bloqueio de acesso ao endpoint `/profile/me` sem autenticação ativa.
+  * Logout com revogação física do token de acesso pessoal no banco de dados.

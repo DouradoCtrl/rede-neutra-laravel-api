@@ -16,7 +16,7 @@ Mapeamento e documentação retrospectiva do CRUD completo de usuários da API R
 
 **Armazenamento (Storage)**: PostgreSQL (persistência de registros cadastrais na tabela `users`).
 
-**Testes**: Verificação de regras de hierarquia e validação manual via API Client.
+**Testes**: Testes automatizados via Pest PHP no backend Laravel cobrindo o CRUD de usuários e restrições de permissão/hierarquia, além de verificação manual.
 
 **Plataforma Alvo**: API REST com dados em JSON consumida de forma desacoplada por clientes web.
 
@@ -77,3 +77,20 @@ laravel/
 ```
 
 **Decisão de Estrutura**: A arquitetura obedece rigorosamente às convenções do Laravel com injeção de dependências do Service/Repository no Controller, mantendo a responsabilidade isolada de cada camada.
+
+## Testes Automatizados
+
+Foram criados testes automatizados de funcionalidade usando Pest PHP no backend Laravel:
+* **Arquivo de Testes**: [UserTest.php](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/laravel/tests/Feature/UserTest.php)
+* **Cenários testados**:
+  * Listagem geral de usuários permitida para `super_admin`.
+  * Listagem restrita ao mesmo grupo de telecomunicações do `admin` logado (via escopo global da trait `BelongsToTelecomGroup`).
+  * Bloqueio de listagem de usuários para cargo comum `user` (HTTP 403).
+  * Criação de usuário definindo grupo e qualquer cargo por `super_admin`.
+  * Criação de usuário por `admin` restrita ao próprio grupo (telecom_group_id proibido na requisição e herdado automaticamente via trait) e cargo igual ou inferior.
+  * Visualização de qualquer usuário por `super_admin` e restrita ao mesmo grupo por `admin` (retornando HTTP 404 para grupos diferentes devido ao escopo global).
+  * Atualização de qualquer usuário por `super_admin`.
+  * Atualização de usuário do mesmo grupo por `admin`, e bloqueio de atualização para super_admin ou outro grupo.
+  * Impossibilidade de o usuário alterar o próprio cargo/role.
+  * Remoção de outros usuários por `super_admin`, com bloqueio de auto-exclusão.
+  * Remoção de usuários do mesmo grupo por `admin` (bloqueio para outros grupos ou super_admins).
