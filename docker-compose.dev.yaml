@@ -57,3 +57,17 @@ services:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
+
+  ####################################################################################################
+  # Next.js
+  ####################################################################################################
+  nextjs:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./nextjs:/app
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - nginx
