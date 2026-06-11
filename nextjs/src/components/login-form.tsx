@@ -6,15 +6,8 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-  FieldError,
-} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function LoginForm({
   className,
@@ -38,8 +31,9 @@ export function LoginForm({
         body: JSON.stringify({ email, password }),
       });
       
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
         if (res.status === 422) {
           setErrors(data.errors || {});
         }
@@ -58,10 +52,10 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
+      <Card className="overflow-hidden border-border dark:bg-card">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form onSubmit={handleSubmit} className="p-6 md:p-8">
-            <FieldGroup>
+            <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center gap-4 text-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
                   <svg
@@ -90,8 +84,9 @@ export function LoginForm({
                   </p>
                 </div>
               </div>
-              <Field>
-                <FieldLabel htmlFor="email">E-mail</FieldLabel>
+              
+              <div className="grid gap-2">
+                <Label htmlFor="email">E-mail</Label>
                 <Input
                   id="email"
                   type="email"
@@ -101,14 +96,15 @@ export function LoginForm({
                   disabled={isLoading}
                 />
                 {errors.email && (
-                  <FieldError
-                    errors={errors.email.map((msg) => ({ message: msg }))}
-                  />
+                  <p className="text-xs font-medium text-red-500 mt-0.5">
+                    {errors.email[0]}
+                  </p>
                 )}
-              </Field>
-              <Field>
+              </div>
+              
+              <div className="grid gap-2">
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Senha</FieldLabel>
+                  <Label htmlFor="password">Senha</Label>
                   <a
                     href="#"
                     className="ml-auto text-xs underline-offset-2 hover:underline text-muted-foreground"
@@ -129,17 +125,16 @@ export function LoginForm({
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <FieldError
-                    errors={errors.password.map((msg) => ({ message: msg }))}
-                  />
+                  <p className="text-xs font-medium text-red-500 mt-0.5">
+                    {errors.password[0]}
+                  </p>
                 )}
-              </Field>
-              <Field>
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Entrando..." : "Entrar"}
-                </Button>
-              </Field>
-            </FieldGroup>
+              </div>
+              
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Entrando..." : "Entrar"}
+              </Button>
+            </div>
           </form>
           <div className="relative hidden bg-muted md:block">
             <img
