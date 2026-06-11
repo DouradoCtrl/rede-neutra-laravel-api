@@ -43,11 +43,11 @@
 
 ### Implementação da História de Usuário 1
 
-- [ ] T006 [P] [US1] Instalar os componentes shadcn necessários via CLI (`form`, `input`, `button`, `label`) em `nextjs/`
-- [ ] T007 [P] [US1] Integrar o Toaster Global do Sonner no RootLayout em `nextjs/src/app/layout.tsx`
-- [ ] T008 [US1] Criar tela inicial restrita para redirecionamento em `nextjs/src/app/dashboard/page.tsx`
-- [ ] T009 [US1] Criar UI básica do Formulário de Login (estrutural, sem lógica complexa ainda) em `nextjs/src/app/login/page.tsx`
-- [ ] T010 [US1] Acoplar a chamada ao serviço de backend no componente de login, tratando as respostas 422 e disparando Sonner Toasts apropriados em `nextjs/src/app/login/page.tsx`
+- [x] T006 [P] [US1] Instalar os componentes shadcn necessários via CLI (`form`, `input`, `button`, `label`) em `nextjs/`
+- [x] T007 [P] [US1] Integrar o Toaster Global do Sonner no RootLayout em `nextjs/src/app/layout.tsx`
+- [x] T008 [US1] Criar tela inicial restrita para redirecionamento em `nextjs/src/app/dashboard/page.tsx`
+- [x] T009 [US1] Criar UI básica do Formulário de Login (estrutural, sem lógica complexa ainda) em `nextjs/src/app/login/page.tsx`
+- [x] T010 [US1] Acoplar a chamada ao serviço de backend no componente de login, tratando as respostas 422 e disparando Sonner Toasts apropriados em `nextjs/src/app/login/page.tsx`
 
 **Ponto de Verificação (Checkpoint)**: Neste ponto, a História de Usuário 1 deve ser totalmente funcional e testável de forma independente (visualmente e na tratativa de erros recebidos).
 
@@ -61,10 +61,10 @@
 
 ### Implementação da História de Usuário 2
 
-- [ ] T011 [P] [US2] Criar Next.js Server Route (ou Action) para atuar como proxy seguro de login em `nextjs/src/app/api/auth/login/route.ts`
-- [ ] T012 [US2] Refatorar chamada do `authService` para usar o server side e extrair o `device_name` a partir de cabeçalhos HTTP na requisição em `nextjs/src/app/api/auth/login/route.ts`
-- [ ] T013 [US2] Implementar leitura e gravação segura do token recebido pelo Laravel em Cookies HTTP-Only gerados pela Server Route Next em `nextjs/src/app/api/auth/login/route.ts`
-- [ ] T014 [US2] Atualizar a UI do Login para apontar para a Server Route do Next em vez de apontar diretamente para a API do Laravel em `nextjs/src/app/login/page.tsx`
+- [x] T011 [P] [US2] Criar Next.js Server Route (ou Action) para atuar como proxy seguro de login em `nextjs/src/app/api/auth/login/route.ts`
+- [x] T012 [US2] Refatorar chamada do `authService` para usar o server side e extrair o `device_name` a partir de cabeçalhos HTTP na requisição em `nextjs/src/app/api/auth/login/route.ts`
+- [x] T013 [US2] Implementar leitura e gravação segura do token recebido pelo Laravel em Cookies HTTP-Only gerados pela Server Route Next em `nextjs/src/app/api/auth/login/route.ts`
+- [x] T014 [US2] Atualizar a UI do Login para apontar para a Server Route do Next em vez de apontar diretamente para a API do Laravel em `nextjs/src/app/login/page.tsx`
 
 **Ponto de Verificação (Checkpoint)**: As Histórias de Usuário 1 E 2 devem ambas funcionar independentemente. A aplicação tem segurança de SSR garantida.
 
@@ -74,8 +74,8 @@
 
 **Objetivo**: Melhorias que afetam múltiplas histórias de usuário.
 
-- [ ] T015 [P] Ajustar o `docker-compose.dev.yaml` caso necessário para garantir o mapeamento de rede e volumes do `nextjs/` localmente.
-- [ ] T016 Rodar as validações do quickstart.md localmente e garantir o fluxo completo de Login ao Dashboard.
+- [x] T015 [P] Ajustar o `docker-compose.dev.yaml` caso necessário para garantir o mapeamento de rede e volumes do `nextjs/` localmente.
+- [x] T016 Rodar as validações do quickstart.md localmente e garantir o fluxo completo de Login ao Dashboard.
 
 ---
 
