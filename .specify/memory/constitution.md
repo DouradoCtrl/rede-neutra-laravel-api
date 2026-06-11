@@ -37,6 +37,8 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 - **Granularidade Cirúrgica (Commit por Arquivo)**: Cada arquivo criado, modificado ou deletado deve preferencialmente ser comitado de forma individual e independente, otimizando a rastreabilidade histórica e permitindo um acompanhamento granular do progresso.
 - **Commits Semânticos em Português**: Todas as mensagens de commit devem seguir os padrões do Conventional Commits, escritas inteiramente em português e com descrição curta. Exemplos:
   - `feat: criar UserService.php`
+  - `fix: corrigir validacao de cpf`
+  - `refactor: extrair logica de token para Service`
   - `docs: adicionar spec.md`
   - `test: implementar UserRepositoryTest.php`
   - `chore: ajustar rotas no api.php`
