@@ -39,14 +39,11 @@ export function LoginForm({
       });
       
       if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
         if (res.status === 422) {
-          const data = await res.json();
           setErrors(data.errors || {});
-          toast.error("Por favor, verifique os erros no formulário.");
-        } else {
-          const data = await res.json().catch(() => ({}));
-          toast.error(data.message || "Falha ao realizar login. Tente novamente.");
         }
+        toast.error(data.message || "Falha ao realizar login. Tente novamente.");
         return;
       }
       
