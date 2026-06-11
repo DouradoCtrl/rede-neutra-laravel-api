@@ -1,4 +1,5 @@
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+Para obter contexto sobre as tecnologias a serem utilizadas, estrutura do projeto,
+comandos de shell e outras informações importantes, leia o plano atual:
+[Plano de Implementação](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/specs/001-ambiente-desenvolvimento-docker/plan.md)
 <!-- SPECKIT END -->
