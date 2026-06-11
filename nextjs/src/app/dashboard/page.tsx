@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { authService } from "@/services/authService";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -13,20 +14,11 @@ export default function DashboardPage() {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      const res = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok) {
-        toast.success(data.message || "Sessão encerrada com sucesso!");
-        router.push("/login");
-      } else {
-        toast.error(data.message || "Falha ao realizar logout.");
-      }
-    } catch (error) {
-      toast.error("Erro de conexão ao tentar sair.");
+      const data = await authService.logout();
+      toast.success(data.message || "Sessão encerrada com sucesso!");
+      router.push("/login");
+    } catch (error: any) {
+      toast.error(error.message || "Falha ao realizar logout.");
     } finally {
       setIsLoggingOut(false);
     }
