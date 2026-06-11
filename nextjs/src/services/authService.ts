@@ -21,6 +21,11 @@ export interface AuthErrorResponse {
   errors?: Record<string, string[]>;
 }
 
+export interface LogoutResponse {
+  success: boolean;
+  message: string;
+}
+
 export const authService = {
   /**
    * Calls the external Laravel API to authenticate the user and obtain a Sanctum Bearer Token.
@@ -47,5 +52,29 @@ export const authService = {
     }
 
     return response.json();
+  },
+
+  /**
+   * Performs logout by calling the local Next.js API proxy to clear the HTTP-only cookie.
+   */
+  async logout(): Promise<LogoutResponse> {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        message: data.message || 'Falha ao realizar logout.'
+      };
+    }
+
+    return data as LogoutResponse;
   }
 };
+
