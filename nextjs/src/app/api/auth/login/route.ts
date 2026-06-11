@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
     
     // T013: Store token securely in HttpOnly cookie
     if (response.data?.token) {
-      cookies().set({
+      const cookieStore = await cookies();
+      cookieStore.set({
         name: "auth_token",
         value: response.data.token,
         httpOnly: true,
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, message: "Autenticado com sucesso" }, { status: 200 });
 
   } catch (error: any) {
+    console.error("Erro no proxy de login:", error);
     const err = error as AuthErrorResponse;
     // Forward the 422 response down to the UI
     if (err.errors) {
