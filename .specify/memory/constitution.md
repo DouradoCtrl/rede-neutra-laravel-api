@@ -1,7 +1,9 @@
 <!--
 Sync Impact Report
-- Version change: Initial Draft (v1.0.0)
-- Added sections: Princípios Arquiteturais e Fundamentos, Governança
+- Version change: 1.0.0 → 1.1.0
+- List of modified principles:
+  - Fluxo de Trabalho Git e Padrões de Commit: Alterado "Granularidade Cirúrgica (Commit por Arquivo)" para "Granularidade por Contexto (Commit por Contexto/Funcionalidade)"
+- Added sections: N/A
 - Removed sections: N/A
 - Templates requiring updates: N/A
 - Follow-up TODOs: N/A
@@ -34,10 +36,10 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 ## Fluxo de Trabalho Git e Padrões de Commit
 
 - **GitHub Flow**: Para cada nova especificação ou desenvolvimento de funcionalidade, deve-se criar uma branch separada a partir da branch principal.
-- **Granularidade Cirúrgica (Commit por Arquivo)**: Cada arquivo criado, modificado ou deletado deve preferencialmente ser comitado de forma individual e independente, otimizando a rastreabilidade histórica e permitindo um acompanhamento granular do progresso.
+- **Granularidade por Contexto (Commit por Contexto/Funcionalidade)**: As alterações devem ser comitadas de forma agregada por contexto lógico ou funcionalidade, agrupando os arquivos relacionados à mesma modificação em um único commit coerente, otimizando o histórico de alterações e facilitando revisões.
 - **Commits Semânticos em Português**: Todas as mensagens de commit devem seguir os padrões do Conventional Commits, escritas inteiramente em português e com descrição curta. Exemplos:
   - `feat: criar UserService.php`
-  - `fix: corrigir validacao de cpf`
+  - `fix: corrigir validação de cpf`
   - `refactor: extrair logica de token para Service`
   - `docs: adicionar spec.md`
   - `test: implementar UserRepositoryTest.php`
@@ -49,4 +51,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 - Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 - As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou acesso a banco fora de Repositories.
 
-**Versão**: 1.0.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-11
+**Versão**: 1.1.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-11
