@@ -12,15 +12,15 @@ docker-compose -f docker-compose.dev.yaml up -d
 **2. Verificando o CORS do Backend**
 - Envie uma requisição OPTIONS manual usando curl ou o Insomnia para verificar se as rotas de login permitem a origem local onde o container do Next.js roda (tipicamente `localhost:3000`).
 ```bash
-curl -i -X OPTIONS http://localhost:8000/api/login -H "Origin: http://localhost:3000"
+curl -i -X OPTIONS http://localhost/api/v1/auth/login -H "Origin: http://localhost:3000"
 ```
 A resposta deve retornar status `204 No Content` ou `200 OK` com os headers CORS corretos e `Access-Control-Allow-Origin: http://localhost:3000`.
 
 **3. Validação do Fluxo com Dados Inválidos**
 1. Acesse o frontend (ex: `http://localhost:3000/login`).
 2. Digite um e-mail com formato estranho e preencha algo qualquer em senha, depois clique em Submeter.
-3. Certifique-se de ver o Toast de Sonner dizendo algo como "Falha na validação" (ou "Credenciais inválidas").
-4. A mensagem de erro da API deve aparecer logo embaixo dos campos de input (UI Shadcn).
+3. Certifique-se de ver o Toast do Sonner exibindo diretamente o texto do erro retornado no campo `message` da resposta da API (ex: *"As credenciais fornecidas estão incorretas."* ou *"O campo email é obrigatório. (e mais 1 erro)"*).
+4. As mensagens de erro individuais da API devem aparecer logo embaixo de cada campo de input correspondente (utilizando o componente Shadcn `FieldError`).
 
 **4. Verificando Isolamento do Cookie no Login**
 1. Faça o Login com credenciais válidas conhecidas (seeding do Laravel).
