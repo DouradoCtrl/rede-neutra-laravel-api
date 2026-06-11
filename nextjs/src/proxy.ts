@@ -5,7 +5,10 @@ export function proxy(request: NextRequest) {
   const token = request.cookies.get("auth_token")?.value;
   const { pathname } = request.nextUrl;
 
-  const isProtectedRoute = pathname.startsWith("/dashboard");
+  const isProtectedRoute =
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/usuarios") ||
+    pathname.startsWith("/telecom");
   const isAuthRoute = pathname === "/login";
 
   // Se acessar a rota raiz '/', redireciona com base na autenticação
@@ -14,7 +17,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(targetUrl);
   }
 
-  // Se o usuário não está autenticado e tenta acessar o dashboard, redireciona para /login
+  // Se o usuário não está autenticado e tenta acessar rota protegida, redireciona para /login
   if (isProtectedRoute && !token) {
     const loginUrl = new URL("/login", request.url);
     return NextResponse.redirect(loginUrl);
@@ -31,5 +34,12 @@ export function proxy(request: NextRequest) {
 
 // Executa o middleware apenas nas rotas de interesse
 export const config = {
-  matcher: ["/", "/dashboard/:path*", "/login"],
+  matcher: [
+    "/",
+    "/dashboard/:path*",
+    "/usuarios/:path*",
+    "/telecom/:path*",
+    "/login",
+  ],
 };
+

@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Providers } from "@/components/providers";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Rede Neutra - Kayros Link",
@@ -15,11 +22,14 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className="h-full antialiased"
+      suppressHydrationWarning
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster />
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Providers attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

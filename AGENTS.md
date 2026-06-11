@@ -1,5 +1,5 @@
 <!-- SPECKIT START -->
-Para obter contexto sobre as tecnologias a serem utilizadas, estrutura do projeto,
-comandos de shell e outras informações importantes, leia o plano atual:
-[Plano de Implementação](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/specs/005-nextjs-auth/plan.md)
+For additional context about technologies to be used, project structure,
+shell commands, and other important information, read the current plan
+at specs/006-nextjs-sidebar/plan.md
 <!-- SPECKIT END -->
