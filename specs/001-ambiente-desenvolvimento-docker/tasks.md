@@ -18,7 +18,7 @@
 
 **Objetivo**: Inicialização e estrutura básica do ambiente na raiz do monorepo.
 
-- [ ] T001 Criar o arquivo `.env.example` na raiz do monorepo contendo os parâmetros de banco de dados (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
+- [x] T001 Criar o arquivo `.env.example` na raiz do monorepo contendo os parâmetros de banco de dados (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
 
 ---
 
@@ -28,8 +28,8 @@
 
 **⚠️ CRÍTICO**: Nenhuma tarefa das histórias de usuário pode começar até que esta fase esteja concluída.
 
-- [ ] T002 Remover o arquivo antigo de docker-compose em `laravel/docker-compose.dev.yaml`
-- [ ] T003 Criar o arquivo `docker-compose.dev.yaml` na raiz do monorepo, definindo os serviços básicos (php, nginx, redis, db, mail) e mapeando o volume do backend para `./laravel:/var/www`
+- [x] T002 Remover o arquivo antigo de docker-compose em `laravel/docker-compose.dev.yaml`
+- [x] T003 Criar o arquivo `docker-compose.dev.yaml` na raiz do monorepo, definindo os serviços básicos (php, nginx, redis, db, mail) e mapeando o volume do backend para `./laravel:/var/www`
 
 **Checkpoint**: Fundação pronta - a implementação das User Stories pode iniciar de forma focada.
 
@@ -43,10 +43,10 @@
 
 ### Implementação para a User Story 1
 
-- [ ] T004 [P] [US1] Criar o arquivo `.env` local na raiz do monorepo a partir do `.env.example`
-- [ ] T005 [P] [US1] Validar que o arquivo `laravel/.env` possui `DB_HOST=db` e credenciais compatíveis para conexão local da API com o container
-- [ ] T006 [US1] Ajustar o mapeamento de volumes do Nginx no `docker-compose.dev.yaml` da raiz para ler os confs locais de `.docker/nginx/` e servir `/var/www/public`
-- [ ] T007 [US1] Executar o build das imagens dos containers para testar a inicialização inicial do Nginx/PHP
+- [x] T004 [P] [US1] Criar o arquivo `.env` local na raiz do monorepo a partir do `.env.example`
+- [x] T005 [P] [US1] Validar que o arquivo `laravel/.env` possui `DB_HOST=db` e credenciais compatíveis para conexão local da API com o container
+- [x] T006 [US1] Ajustar o mapeamento de volumes do Nginx no `docker-compose.dev.yaml` da raiz para ler os confs locais de `.docker/nginx/` e servir `/var/www/public`
+- [x] T007 [US1] Executar o build das imagens dos containers para testar a inicialização inicial do Nginx/PHP
 
 **Checkpoint**: A partir daqui, a API Laravel já deve rodar de forma isolada dentro do container FPM na raiz do monorepo.
 
@@ -60,8 +60,8 @@
 
 ### Implementação para a User Story 2
 
-- [ ] T008 [US2] Mapear o volume físico do PostgreSQL no serviço `db` do `docker-compose.dev.yaml` na raiz para `./.docker/db/data:/var/lib/postgresql/data`
-- [ ] T009 [US2] Mapear o volume físico do Redis no serviço `redis` do `docker-compose.dev.yaml` na raiz para `./.docker/redis/data:/data`
+- [x] T008 [US2] Mapear o volume físico do PostgreSQL no serviço `db` do `docker-compose.dev.yaml` na raiz para `./.docker/db/data:/var/lib/postgresql/data`
+- [x] T009 [US2] Mapear o volume físico do Redis no serviço `redis` do `docker-compose.dev.yaml` na raiz para `./.docker/redis/data:/data`
 
 **Checkpoint**: O ambiente é capaz de reter dados locais sem sofrer perdas entre desligamentos de containers.
 
@@ -75,7 +75,7 @@
 
 ### Implementação para a User Story 3
 
-- [ ] T010 [US3] Injetar as variáveis de ambiente `POSTGRES_DB=${DB_DATABASE}`, `POSTGRES_USER=${DB_USERNAME}` e `POSTGRES_PASSWORD=${DB_PASSWORD}` no serviço `db` do `docker-compose.dev.yaml` da raiz
+- [x] T010 [US3] Injetar as variáveis de ambiente `POSTGRES_DB=${DB_DATABASE}`, `POSTGRES_USER=${DB_USERNAME}` e `POSTGRES_PASSWORD=${DB_PASSWORD}` no serviço `db` do `docker-compose.dev.yaml` da raiz
 
 ---
 
@@ -83,9 +83,9 @@
 
 **Objetivo**: Testes de ponta a ponta e auditoria final de integridade.
 
-- [ ] T011 Rodar o comando `docker compose -f docker-compose.dev.yaml up -d --build` para validar o build final na raiz
-- [ ] T012 Executar migrations no container para testar conectividade FPM/Postgres: `docker compose -f docker-compose.dev.yaml exec php php artisan migrate`
-- [ ] T013 Validar passo a passo seguindo os cenários descritos no [quickstart.md](quickstart.md)
+- [x] T011 Rodar o comando `docker compose -f docker-compose.dev.yaml up -d --build` para validar o build final na raiz
+- [x] T012 Executar migrations no container para testar conectividade FPM/Postgres: `docker compose -f docker-compose.dev.yaml exec php php artisan migrate`
+- [x] T013 Validar passo a passo seguindo os cenários descritos no [quickstart.md](quickstart.md)
 
 ---
 
