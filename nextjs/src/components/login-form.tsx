@@ -65,11 +65,33 @@ export function LoginForm({
         <CardContent className="grid p-0 md:grid-cols-2">
           <form onSubmit={handleSubmit} className="p-6 md:p-8">
             <FieldGroup>
-              <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Bem-vindo de volta</h1>
-                <p className="text-balance text-muted-foreground text-sm">
-                  Acesse a sua conta Kayros Link
-                </p>
+              <div className="flex flex-col items-center gap-4 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                    <circle cx="12" cy="12" r="4" fill="currentColor" className="opacity-30" />
+                    <circle cx="12" cy="5" r="1.5" fill="currentColor" />
+                    <circle cx="12" cy="19" r="1.5" fill="currentColor" />
+                    <circle cx="5" cy="12" r="1.5" fill="currentColor" />
+                    <circle cx="19" cy="12" r="1.5" fill="currentColor" />
+                  </svg>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <h1 className="text-2xl font-bold tracking-tight">Bem-vindo de volta</h1>
+                  <p className="text-balance text-muted-foreground text-sm">
+                    Acesse a sua conta Kayros Link
+                  </p>
+                </div>
               </div>
               <Field>
                 <FieldLabel htmlFor="email">E-mail</FieldLabel>
