@@ -8,7 +8,7 @@
 
 ## Summary
 
-Implementar a estrutura de navegação lateral (Sidebar) no Next.js utilizando o componente de Sidebar oficial da Shadcn UI (baseado em Radix UI). A Sidebar exibirá o logotipo da aplicação, itens de navegação para Dashboard, Usuários e Telecom, e conterá um menu flutuante (dropdown) associado ao avatar do usuário autenticado para as ações de perfil e logout. Toda a área logada será encapsulada em um grupo de rotas com layout compartilhado para garantir fluidez e consistência na navegação.
+Implementar a estrutura de navegação lateral (Sidebar) no Next.js utilizando o componente de Sidebar oficial da Shadcn UI (baseado em Radix UI) com suporte a temas dinâmicos (Claro/Escuro/Sistema) via `next-themes` e tipografia premium (fonte Inter). A Sidebar exibirá o logotipo da aplicação ("Rede Neutra") e atalho do "Dashboard" no menu principal, e conterá no rodapé os atalhos de "Usuários" e "Telecom" sob o cabeçalho "Administrador" (exibido condicionalmente a perfis administrativos). O rodapé também contará com um menu flutuante (dropdown) associado ao avatar do usuário autenticado para as ações de perfil e logout. Toda a área logada será encapsulada em um grupo de rotas com layout compartilhado e um componente `<Header>` unificado com breadcrumbs dinâmicos e alternador de tema.
 
 ## Technical Context
 
@@ -62,18 +62,21 @@ nextjs/
 │   │   │   ├── layout.tsx        # Layout comum com SidebarProvider e AppSidebar
 │   │   │   ├── dashboard/        # Movido para dentro do grupo autenticado
 │   │   │   │   └── page.tsx
-│   │   │   ├── usuarios/         # Nova rota de Usuários
+│   │   │   ├── usuarios/         # Rota de Usuários
 │   │   │   │   └── page.tsx
-│   │   │   └── telecom/          # Nova rota de Telecom
+│   │   │   └── telecom/          # Rota de Telecom
 │   │   │       └── page.tsx
 │   │   ├── api/
 │   │   │   └── auth/
-│   │   │       └── me/           # Novo Route Handler para dados do perfil
+│   │   │       └── me/           # Route Handler para dados do perfil
 │   │   │           └── route.ts
-│   │   └── middleware.ts         # Ativação do middleware Next.js para controle de rotas
+│   │   └── middleware.ts         # Controle de rotas protegidas
 │   ├── components/
 │   │   ├── app-sidebar.tsx       # Componente customizado da barra lateral
-│   │   └── ui/                   # Componentes primitivos Shadcn UI (sidebar, avatar, dropdown)
+│   │   ├── header.tsx            # Header unificado com breadcrumbs dinâmicos e ThemeToggle
+│   │   ├── theme-toggle.tsx      # Componente seletor de temas (Claro/Escuro/Sistema)
+│   │   ├── providers.tsx         # Provedor global de temas (next-themes)
+│   │   └── ui/                   # Componentes primitivos Shadcn UI (sidebar, avatar, dropdown, breadcrumb)
 │   └── services/
 │       └── userService.ts        # Serviço de comunicação para obter dados do usuário
 ```

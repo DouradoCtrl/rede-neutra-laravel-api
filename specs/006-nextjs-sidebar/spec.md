@@ -52,7 +52,7 @@ Como usuário autenticado, quero visualizar o meu avatar na barra lateral de nav
 
 - **FR-001**: O sistema MUST exibir uma barra lateral de navegação no lado esquerdo da tela nas áreas autenticadas do sistema.
 - **FR-002**: A barra lateral MUST exibir o logotipo e o nome do projeto de forma proeminente no topo.
-- **FR-003**: A barra lateral MUST disponibilizar atalhos de navegação para as seções "Dashboard", "Usuários" e "Telecom".
+- **FR-003**: A barra lateral MUST disponibilizar atalhos de navegação para a seção "Dashboard" no menu principal, e "Usuários" e "Telecom" no rodapé de administrador (condicionado aos perfis "admin" ou "super_admin").
 - **FR-004**: O sistema MUST exibir o avatar e o identificador do usuário conectado na parte inferior da barra lateral.
 - **FR-005**: Ao clicar no avatar do usuário, um menu flutuante MUST ser exibido exibindo as opções de navegação para o "Perfil" e a ação de "Sair".
 - **FR-006**: A ação "Sair" do menu do avatar MUST encerrar a sessão autenticada do usuário ativo.
