@@ -16,9 +16,9 @@
 
 **Objetivo**: Inicialização do projeto e estrutura básica
 
-- [ ] T001 Inicializar a aplicação Next.js 16.2.9 no diretório `nextjs/` usando npx create-next-app
-- [ ] T002 [P] Inicializar as configurações do Shadcn UI e Tailwind no `nextjs/`
-- [ ] T003 [P] Instalar a biblioteca Sonner no `nextjs/`
+- [x] T001 Inicializar a aplicação Next.js 16.2.9 no diretório `nextjs/` usando npx create-next-app
+- [x] T002 [P] Inicializar as configurações do Shadcn UI e Tailwind no `nextjs/`
+- [x] T003 [P] Instalar a biblioteca Sonner no `nextjs/`
 
 ---
 
@@ -28,8 +28,8 @@
 
 **⚠️ CRÍTICO**: Nenhuma história de usuário pode começar até que esta fase esteja completa.
 
-- [ ] T004 Atualizar as origens permitidas no CORS em `laravel/config/cors.php`
-- [ ] T005 [P] Criar o contrato base do serviço de autenticação em `nextjs/src/services/authService.ts`
+- [x] T004 Atualizar as origens permitidas no CORS em `laravel/config/cors.php`
+- [x] T005 [P] Criar o contrato base do serviço de autenticação em `nextjs/src/services/authService.ts`
 
 **Ponto de Verificação (Checkpoint)**: Fundação pronta - a implementação das histórias de usuário agora pode começar em paralelo.
 
