@@ -96,7 +96,7 @@ export function LoginForm({
                   disabled={isLoading}
                 />
                 {errors.email && (
-                  <p className="text-xs font-medium text-red-500 mt-0.5">
+                  <p className="text-sm font-medium text-red-500 mt-1">
                     {errors.email[0]}
                   </p>
                 )}
@@ -125,7 +125,7 @@ export function LoginForm({
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <p className="text-xs font-medium text-red-500 mt-0.5">
+                  <p className="text-sm font-medium text-red-500 mt-1">
                     {errors.password[0]}
                   </p>
                 )}
