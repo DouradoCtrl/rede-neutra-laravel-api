@@ -119,9 +119,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton render={<a href={item.url} />}>
-                    <item.icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0" />
-                    <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+                      <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
+                    </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -133,26 +135,24 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger
-                render={
-                  <SidebarMenuButton className="w-full justify-between h-12 hover:bg-muted p-2 rounded-lg transition-colors flex items-center gap-3" />
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <Avatar className="h-8 w-8 rounded-lg shrink-0">
-                    <AvatarImage src="" />
-                    <AvatarFallback className="bg-primary/10 text-primary font-semibold text-xs rounded-lg">
-                      NK
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
-                    <span className="font-medium text-xs leading-none text-foreground">NOC Kayros</span>
-                    <span className="text-[10px] text-muted-foreground mt-0.5 max-w-[120px] truncate">
-                      noc@kayroslink.com.br
-                    </span>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton className="w-full justify-between h-12 hover:bg-muted p-2 rounded-lg transition-colors flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <Avatar className="h-8 w-8 rounded-lg shrink-0">
+                      <AvatarImage src="" />
+                      <AvatarFallback className="bg-primary/10 text-primary font-semibold text-xs rounded-lg">
+                        NK
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col text-left group-data-[collapsible=icon]:hidden">
+                      <span className="font-medium text-xs leading-none text-foreground">NOC Kayros</span>
+                      <span className="text-[10px] text-muted-foreground mt-0.5 max-w-[120px] truncate">
+                        noc@kayroslink.com.br
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <ChevronUp className="h-4 w-4 text-muted-foreground group-data-[collapsible=icon]:hidden shrink-0" />
+                  <ChevronUp className="h-4 w-4 text-muted-foreground group-data-[collapsible=icon]:hidden shrink-0" />
+                </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" align="end" className="w-56 dark:bg-card border-border">
                 <DropdownMenuLabel className="font-normal">
