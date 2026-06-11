@@ -19,7 +19,7 @@ class UpdateTelecomGroupRequest extends FormRequest
      */
     public function rules(): array
     {
-        $telecomGroup = $this->route('telecom_group');
+        $telecomGroup = $this->route('telecomGroup');
         return [
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:telecom_groups,slug,' . $telecomGroup->id],
