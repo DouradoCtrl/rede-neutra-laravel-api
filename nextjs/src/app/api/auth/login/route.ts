@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true, message: "Autenticado com sucesso" }, { status: 200 });
+    return NextResponse.json({ success: true, message: response.message || "Autenticado com sucesso" }, { status: 200 });
 
   } catch (error: any) {
     console.error("Erro no proxy de login:", error);
