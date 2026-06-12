@@ -25,8 +25,8 @@
 
 **Purpose**: Validação e preparação de infraestrutura do projeto
 
-- [ ] T001 Verificar o funcionamento e rotas autenticadas do Next.js localmente no repositório `nextjs/`
-- [ ] T002 Verificar se o Toaster do Sonner já está configurado no layout principal em `nextjs/src/app/layout.tsx` ou similar
+- [x] T001 Verificar o funcionamento e rotas autenticadas do Next.js localmente no repositório `nextjs/`
+- [x] T002 Verificar se o Toaster do Sonner já está configurado no layout principal em `nextjs/src/app/layout.tsx` ou similar
 
 ---
 
@@ -36,8 +36,8 @@
 
 **⚠️ CRITICAL**: Nenhuma história de usuário do frontend pode começar até que estes endpoints de proxy estejam prontos.
 
-- [ ] T003 Criar o BFF Route Handler para atualização do perfil em `nextjs/src/app/api/auth/profile/me/route.ts` (extrai o cookie de token, chama o Laravel via `PUT` sem validações locais e retorna o JSON original)
-- [ ] T004 Criar o BFF Route Handler para alteração da senha em `nextjs/src/app/api/auth/profile/password/route.ts` (extrai o cookie de token, chama o Laravel via `PUT` sem validações locais e retorna o JSON original)
+- [x] T003 Criar o BFF Route Handler para atualização do perfil em `nextjs/src/app/api/auth/profile/me/route.ts` (extrai o cookie de token, chama o Laravel via `PUT` sem validações locais e retorna o JSON original)
+- [x] T004 Criar o BFF Route Handler para alteração da senha em `nextjs/src/app/api/auth/profile/password/route.ts` (extrai o cookie de token, chama o Laravel via `PUT` sem validações locais e retorna o JSON original)
 
 **Checkpoint**: APIs de proxy prontas - a implementação do frontend pode iniciar.
 
@@ -51,9 +51,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Criar método de cliente `updateProfile` em `nextjs/src/services/userService.ts` (chama o endpoint do BFF `/api/auth/profile/me` via PUT)
-- [ ] T006 [US1] Pré-carregar os dados cadastrais do usuário ao montar a página de perfil em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` usando `userService.getClientProfile`
-- [ ] T007 [US1] Construir a interface do formulário de dados pessoais em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` usando componentes do Shadcn UI, ligando a submissão ao `userService.updateProfile` e tratando os erros 422 nos inputs.
+- [x] T005 [P] [US1] Criar método de cliente `updateProfile` em `nextjs/src/services/userService.ts` (chama o endpoint do BFF `/api/auth/profile/me` via PUT)
+- [x] T006 [US1] Pré-carregar os dados cadastrais do usuário ao montar a página de perfil em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` usando `userService.getClientProfile`
+- [x] T007 [US1] Construir a interface do formulário de dados pessoais em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` usando componentes do Shadcn UI, ligando a submissão ao `userService.updateProfile` e tratando os erros 422 nos inputs.
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently.
 
@@ -67,8 +67,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T008 [P] [US2] Criar método de cliente `updatePassword` em `nextjs/src/services/userService.ts` (chama o endpoint do BFF `/api/auth/profile/password` via PUT)
-- [ ] T009 [US2] Construir o formulário de alteração de senha em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` com campos de senha atual, nova senha e confirmação, tratando o envio via `userService.updatePassword` e erros de validação.
+- [x] T008 [P] [US2] Criar método de cliente `updatePassword` em `nextjs/src/services/userService.ts` (chama o endpoint do BFF `/api/auth/profile/password` via PUT)
+- [x] T009 [US2] Construir o formulário de alteração de senha em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx` com campos de senha atual, nova senha e confirmação, tratando o envio via `userService.updatePassword` e erros de validação.
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently.
 
@@ -78,8 +78,8 @@
 
 **Purpose**: Ajustes visuais finos e validação final
 
-- [ ] T010 Garantir a responsividade e design consistente em dispositivos mobile em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx`
-- [ ] T011 Rodar o guia de validação do [quickstart.md](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/specs/007-nextjs-profile-edit/quickstart.md) e confirmar o sucesso da feature
+- [x] T010 Garantir a responsividade e design consistente em dispositivos mobile em `nextjs/src/app/(authenticated)/meu-perfil/page.tsx`
+- [x] T011 Rodar o guia de validação do [quickstart.md](file:///home/dourado-kayros/kayros-projects/rede-neutra-laravel-api/specs/007-nextjs-profile-edit/quickstart.md) e confirmar o sucesso da feature
 
 ---
 

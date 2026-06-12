@@ -17,6 +17,17 @@ export interface MeResponse {
   message: string;
 }
 
+export interface ProfileUpdateData {
+  name: string;
+  email: string;
+}
+
+export interface PasswordUpdateData {
+  current_password?: string;
+  password?: string;
+  password_confirmation?: string;
+}
+
 export const userService = {
   /**
    * Fetches the user profile from the Laravel backend API using the provided token.
@@ -60,5 +71,115 @@ export const userService = {
 
     const json = (await response.json()) as MeResponse;
     return json.data;
+  },
+
+  /**
+   * Updates the user profile on the Laravel backend using the provided token.
+   */
+  async updateProfile(token: string, data: ProfileUpdateData): Promise<any> {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost';
+    
+    const response = await fetch(`${apiUrl}/api/v1/auth/profile/me`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: "no-store",
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        ...responseData,
+        status: response.status,
+      };
+    }
+
+    return responseData;
+  },
+
+  /**
+   * Updates the user password on the Laravel backend using the provided token.
+   */
+  async updatePassword(token: string, data: PasswordUpdateData): Promise<any> {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost';
+    
+    const response = await fetch(`${apiUrl}/api/v1/auth/profile/password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      cache: "no-store",
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        ...responseData,
+        status: response.status,
+      };
+    }
+
+    return responseData;
+  },
+
+  /**
+   * Calls the local BFF /api/auth/profile/me to update user profile (client-side).
+   */
+  async updateClientProfile(data: ProfileUpdateData): Promise<any> {
+    const response = await fetch("/api/auth/profile/me", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        message: responseData.message || "Falha ao atualizar perfil do usuário.",
+        errors: responseData.errors,
+      };
+    }
+
+    return responseData;
+  },
+
+  /**
+   * Calls the local BFF /api/auth/profile/password to update user password (client-side).
+   */
+  async updateClientPassword(data: PasswordUpdateData): Promise<any> {
+    const response = await fetch("/api/auth/profile/password", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        message: responseData.message || "Falha ao atualizar senha do usuário.",
+        errors: responseData.errors,
+      };
+    }
+
+    return responseData;
   },
 };
