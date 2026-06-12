@@ -26,8 +26,8 @@ export function LoginForm({
     setErrors({});
     
     try {
-      await authService.loginClient({ email, password });
-      toast.success("Login realizado com sucesso!");
+      const res = await authService.loginClient({ email, password });
+      toast.success(res.message || "Login realizado!");
       router.push("/dashboard");
     } catch (err: any) {
       if (err.status === 422) {
