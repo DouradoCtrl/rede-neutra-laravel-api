@@ -15,7 +15,7 @@ import {
   Laptop,
   Smartphone
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { 
   Card, 
   CardHeader, 
@@ -29,6 +29,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { userService } from "@/services/userService";
 import type { UserToken } from "@/services/userService";
 
@@ -71,6 +81,7 @@ export default function MeuPerfilPage() {
   const [tokens, setTokens] = useState<UserToken[]>([]);
   const [loadingTokens, setLoadingTokens] = useState(false);
   const [revokingTokenId, setRevokingTokenId] = useState<number | null>(null);
+  const [tokenToRevoke, setTokenToRevoke] = useState<UserToken | null>(null);
 
   const loadTokens = async () => {
     setLoadingTokens(true);
@@ -86,14 +97,12 @@ export default function MeuPerfilPage() {
   };
 
   const handleRevokeToken = async (tokenId: number) => {
-    const confirmRevoke = window.confirm("Tem certeza que deseja encerrar esta sessão? O dispositivo associado será desconectado.");
-    if (!confirmRevoke) return;
-
     setRevokingTokenId(tokenId);
     try {
       await userService.revokeClientToken(tokenId);
       toast.success("Sessão encerrada com sucesso!");
       loadTokens();
+      setTokenToRevoke(null);
     } catch (err: unknown) {
       console.error("Erro ao revogar sessão:", err);
       const error = err as { message?: string };
@@ -538,14 +547,10 @@ export default function MeuPerfilPage() {
                           variant="ghost"
                           size="sm"
                           className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 px-3"
-                          onClick={() => handleRevokeToken(token.id)}
-                          disabled={revokingTokenId === token.id}
+                          onClick={() => setTokenToRevoke(token)}
+                          disabled={revokingTokenId !== null}
                         >
-                          {revokingTokenId === token.id ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            "Revogar"
-                          )}
+                          Revogar
                         </Button>
                       )}
                     </div>
@@ -556,6 +561,36 @@ export default function MeuPerfilPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Modal de confirmação de revogação de sessão */}
+      <AlertDialog open={!!tokenToRevoke} onOpenChange={(open) => !open && setTokenToRevoke(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Revogar Sessão?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja encerrar a sessão ativa no dispositivo{" "}
+              <span className="font-semibold text-foreground">{tokenToRevoke?.name}</span>? 
+              O dispositivo associado será desconectado imediatamente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={revokingTokenId !== null}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async (e) => {
+                e.preventDefault();
+                if (tokenToRevoke) {
+                  await handleRevokeToken(tokenToRevoke.id);
+                }
+              }}
+              className={buttonVariants({ variant: "destructive" })}
+              disabled={revokingTokenId !== null}
+            >
+              {revokingTokenId !== null && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Confirmar e Encerrar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
