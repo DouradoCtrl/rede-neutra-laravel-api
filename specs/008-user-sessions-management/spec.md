@@ -40,20 +40,6 @@ Como usuário autenticado, desejo invalidar/excluir uma sessão ativa específic
 
 ---
 
-### User Story 3 - Revogação em Massa de Outras Sessões (Priority: P3)
-
-Como usuário autenticado, desejo invalidar todas as outras sessões de uma única vez para garantir a segurança imediata da minha conta em caso de comprometimento de credenciais.
-
-**Why this priority**: Agiliza a segurança da conta em caso de emergência, sem exigir a exclusão manual item a item.
-
-**Independent Test**: [NEEDS CLARIFICATION: A funcionalidade de revogação em massa de todas as outras sessões é desejada para este incremento?]
-
-**Acceptance Scenarios**:
-
-1. **Given** que o usuário deseja deslogar todos os outros dispositivos, **When** ele clica no botão "Revogar Outras Sessões", **Then** todos os tokens exceto o atual devem ser invalidados no backend e a lista atualizada.
-
----
-
 ### Edge Cases
 
 - **Token da Sessão Atual**: O sistema impede de forma estrita, tanto no frontend quanto no backend, que o usuário revogue o token correspondente à requisição activa. Se o ID do token enviado for igual ao ID do token atual do usuário autenticado no Laravel, a requisição deve retornar `400 Bad Request` com uma mensagem amigável.
@@ -90,3 +76,4 @@ Como usuário autenticado, desejo invalidar todas as outras sessões de uma úni
 - O Laravel utiliza a biblioteca Sanctum padrão (`Laravel\Sanctum\PersonalAccessToken`) para controle de tokens e sessões da API.
 - O campo `name` do token é preenchido com a identificação do dispositivo (como o User-Agent extraído no BFF no momento do login).
 - A tabela de tokens possui as colunas padrão `created_at` e `last_used_at` ativas.
+- A funcionalidade de revogação de sessões em massa (revogar todas as outras sessões de uma vez) está fora do escopo desta versão.
