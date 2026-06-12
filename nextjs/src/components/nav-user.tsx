@@ -96,7 +96,7 @@ export function NavUser({ user }: { user: UserProfile | null }) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href="/usuarios">
+                <Link href="/meu-perfil">
                   <UserRoundPen className="mr-2 h-4 w-4" />
                   Perfil
                 </Link>
