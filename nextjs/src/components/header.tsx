@@ -19,6 +19,7 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "dashboard": "Dashboard",
   "usuarios": "Usuários",
   "telecom": "Telecom",
+  "meu-perfil": "Meu Perfil",
 };
 
 interface HeaderProps {
@@ -30,7 +31,7 @@ export function Header({ children }: HeaderProps) {
 
   const segments = pathname
     .split("/")
-    .filter((segment) => segment && segment !== "(authenticated)");
+    .filter((segment) => segment && segment !== "(authenticated)" && segment !== "dashboard");
 
   const breadcrumbs: Array<{
     label: string;
