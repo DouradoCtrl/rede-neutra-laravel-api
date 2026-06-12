@@ -28,6 +28,7 @@ Implementar um frontend moderno com Next.js (16.2.9) para autenticação, consum
 - O Token Bearer recebido pelo Laravel **NÃO PODE** ser exposto ao navegador do usuário (sem LocalStorage ou chamadas `use client` vazando credenciais). Ele será gerenciado via HttpOnly cookies e as requisições autenticadas passarão por um intermediário ou Server Actions.
 - O formulário precisa enviar o `device_name` usando os dados extraídos do cabeçalho `User-Agent`.
 - Obrigatório utilizar o framework Next.js 16.2.9 e instalar as dependências de UI via Shadcn UI em vez de criar componentes do zero.
+- A API do Next.js (BFF) funcionará estritamente como um proxy repassador de dados (pass-through). Nenhuma validação de dados de entrada ou lógica de validação de resposta deve ser duplicada no Next.js, delegando 100% dessa responsabilidade para o Laravel e apenas retornando as respostas originais de erro (ex: 422) ou sucesso.
 
 **Scale/Scope**: Inicialização da pasta `/nextjs`, tela de `/login`, mapeamento de erros 422 para os campos `input` (sem duplicação de lógicas de validação), e tela temporária `/dashboard`. Atualização do CORS no Laravel.
 

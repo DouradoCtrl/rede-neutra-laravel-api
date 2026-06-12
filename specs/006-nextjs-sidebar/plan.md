@@ -29,6 +29,7 @@ Implementar a estrutura de navegação lateral (Sidebar) no Next.js utilizando o
 **Constraints**:
 - Segurança de sessão: Nenhuma credencial de token exposta no lado do cliente.
 - A barra lateral deve usar os componentes originais instalados pelo Shadcn UI no projeto.
+- A API do Next.js (BFF) funcionará estritamente como um proxy repassador de dados (pass-through). Nenhuma validação de dados ou de resposta deve ocorrer na camada do Next.js, delegando toda validação ao Laravel e repassando o retorno inalterado.
 
 ## Constitution Check
 
