@@ -47,5 +47,7 @@ npm run dev
 
 1. No rodapé da barra lateral, clique sobre o avatar/nome do usuário.
 2. **Resultado Esperado**: Um menu suspenso (dropdown) deve surgir exibindo as opções "Perfil" e "Sair".
-3. Clique na opção **Sair**.
-4. **Resultado Esperado**: O sistema deve invalidar a sessão no Laravel, deletar o cookie `auth_token` e redirecionar você de volta para `http://localhost:3000/login`. Qualquer tentativa de voltar no histórico do navegador para `/dashboard` deve redirecionar para a tela de login.
+3. Clique na opção **Perfil**.
+4. **Resultado Esperado**: O navegador deve redirecionar para `/meu-perfil` e carregar a página limpa correspondente.
+5. Abra o menu novamente e clique na opção **Sair**.
+6. **Resultado Esperado**: O sistema deve invalidar a sessão no Laravel, deletar o cookie `auth_token` e redirecionar você de volta para `http://localhost:3000/login`. Qualquer tentativa de voltar no histórico do navegador para `/dashboard` deve redirecionar para a tela de login.

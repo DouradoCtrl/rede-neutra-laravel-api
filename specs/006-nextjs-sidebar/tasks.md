@@ -68,6 +68,7 @@
 - [x] T013 [US2] Integrar no rodapé do componente `<AppSidebar>` em `/nextjs/src/components/app-sidebar.tsx` o componente de `<Avatar>` renderizando as iniciais ou imagem do usuário recebidas por props.
 - [x] T014 [US2] Adicionar no componente `<AppSidebar>` em `/nextjs/src/components/app-sidebar.tsx` o menu dropdown com as ações para direcionar à página de perfil do usuário e a ação de logout.
 - [x] T015 [US2] Conectar o gatilho de logout no dropdown do avatar com o serviço de logout do Next.js `/api/auth/logout` para excluir a sessão local e redirecionar para a tela de login.
+- [x] T019 [US2] Criar rota limpa para a página de perfil em `/nextjs/src/app/(authenticated)/meu-perfil/page.tsx` e atualizar o link no menu dropdown do avatar para apontar para essa nova rota.
 
 **Checkpoint**: Ambas as Histórias de Usuário 1 e 2 estão prontas e integradas de forma independente.
 

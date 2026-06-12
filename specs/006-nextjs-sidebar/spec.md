@@ -37,6 +37,7 @@ Como usuário autenticado, quero visualizar o meu avatar na barra lateral de nav
 
 1. **Given** que o usuário está visualizando o painel lateral, **When** ele clica sobre a imagem de avatar do seu usuário (localizada na parte inferior do painel lateral), **Then** um menu de opções (dropdown) deve ser exibido contendo os itens "Perfil" e "Sair".
 2. **Given** que o menu de opções do avatar está aberto, **When** o usuário clica na opção "Sair", **Then** a sessão do usuário deve ser finalizada, limpando as credenciais de acesso, e o usuário deve ser redirecionado para a tela de autenticação.
+3. **Given** que o menu de opções do avatar está aberto, **When** o usuário clica na opção "Perfil", **Then** o usuário deve ser redirecionado para a página de "Meu Perfil" (`/meu-perfil`).
 
 ---
 
@@ -54,7 +55,7 @@ Como usuário autenticado, quero visualizar o meu avatar na barra lateral de nav
 - **FR-002**: A barra lateral MUST exibir o logotipo e o nome do projeto de forma proeminente no topo.
 - **FR-003**: A barra lateral MUST disponibilizar atalhos de navegação para a seção "Dashboard" no menu principal, e "Usuários" e "Telecom" no rodapé de administrador (condicionado aos perfis "admin" ou "super_admin").
 - **FR-004**: O sistema MUST exibir o avatar e o identificador do usuário conectado na parte inferior da barra lateral.
-- **FR-005**: Ao clicar no avatar do usuário, um menu flutuante MUST ser exibido exibindo as opções de navegação para o "Perfil" e a ação de "Sair".
+- **FR-005**: Ao clicar no avatar do usuário, um menu flutuante MUST ser exibido exibindo as opções de navegação para a página de "Meu Perfil" (`/meu-perfil`) e a ação de "Sair".
 - **FR-006**: A ação "Sair" do menu do avatar MUST encerrar a sessão autenticada do usuário ativo.
 
 ### Key Entities

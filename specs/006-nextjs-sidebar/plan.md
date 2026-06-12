@@ -64,7 +64,9 @@ nextjs/
 │   │   │   │   └── page.tsx
 │   │   │   ├── usuarios/         # Rota de Usuários
 │   │   │   │   └── page.tsx
-│   │   │   └── telecom/          # Rota de Telecom
+│   │   │   ├── telecom/          # Rota de Telecom
+│   │   │   │   └── page.tsx
+│   │   │   └── meu-perfil/       # Rota de Meu Perfil
 │   │   │       └── page.tsx
 │   │   ├── api/
 │   │   │   └── auth/
