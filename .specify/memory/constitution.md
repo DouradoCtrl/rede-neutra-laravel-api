@@ -1,11 +1,12 @@
 <!--
 Sync Impact Report
-- Version change: 1.3.0 → 1.4.0
+- Version change: 1.4.0 → 1.5.0
 - List of modified principles:
-  - VI. Desenvolvimento Frontend Next.js e Segurança (Updated Desacoplamento de Componentes (UI) to make official Shadcn UI components strictly mandatory for UX consistency)
+  - Fluxo de Trabalho Git e Padrões de Commit (Added restriction that commits must only be made after specification, planning, tasks, implementation, testing, and usability approval for an efficient delivery)
 - Added sections: N/A
 - Removed sections: N/A
-- Templates requiring updates: N/A
+- Templates requiring updates:
+  - ✅ `.specify/templates/tasks-template.md` (Updated commit guidelines)
 - Follow-up TODOs: N/A
 -->
 
@@ -44,6 +45,7 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 ## Fluxo de Trabalho Git e Padrões de Commit
 
 - **GitHub Flow**: Para cada nova especificação ou desenvolvimento de funcionalidade, deve-se criar uma branch separada a partir da branch principal.
+- **Momento do Commit (Ciclo Completo)**: Os commits só devem ser realizados após a conclusão de todo o ciclo de desenvolvimento da funcionalidade: especificação (SDD), planejamento técnico, definição de tarefas, implementação do código, realização completa de testes e aprovação da usabilidade. Nenhuma alteração deve ser comitada antes de garantir uma entrega eficiente e funcional.
 - **Granularidade por Contexto (Commit por Contexto/Funcionalidade)**: As alterações devem ser comitadas de forma agregada por contexto lógico ou funcionalidade, agrupando os arquivos relacionados à mesma modificação em um único commit coerente, otimizando o histórico de alterações e facilitando revisões.
 - **Commits Semânticos em Português**: Todas as mensagens de commit devem seguir os padrões do Conventional Commits, escritas inteiramente em português e com descrição curta. Exemplos:
   - `feat: criar UserService.php`
@@ -59,4 +61,4 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 - Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 - As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou acesso a banco fora de Repositories.
 
-**Versão**: 1.4.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-12
+**Versão**: 1.5.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-12
