@@ -1,9 +1,9 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0
-- List of modified principles:
-  - Fluxo de Trabalho Git e Padrões de Commit: Alterado "Granularidade Cirúrgica (Commit por Arquivo)" para "Granularidade por Contexto (Commit por Contexto/Funcionalidade)"
-- Added sections: N/A
+- Version change: 1.1.0 → 1.2.0
+- List of modified principles: N/A
+- Added sections:
+  - VI. Desenvolvimento Frontend Next.js e Segurança (New principle on Next.js componentization, Shadcn/Radix UI usage, token security, and strict service-based communication)
 - Removed sections: N/A
 - Templates requiring updates: N/A
 - Follow-up TODOs: N/A
@@ -33,6 +33,12 @@ Toda a autenticação da aplicação e comunicação entre o frontend e o backen
 ### V. Desenvolvimento Orientado a Especificações (SDD)
 Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolvimento deve seguir estritamente o ciclo do Spec Kit (Especificação -> Planejamento Técnico -> Tarefas -> Implementação). As especificações guiarão a implementação arquitetural e toda a documentação técnica deve ser sempre escrita em **Português**.
 
+### VI. Desenvolvimento Frontend Next.js e Segurança
+O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir as seguintes diretrizes:
+- **Desacoplamento de Componentes (UI)**: O visual do frontend deve ser construído de forma estritamente desacoplada em componentes reutilizáveis, priorizando o uso dos componentes primitivos oficiais do **Shadcn UI** (baseados em **Radix UI**).
+- **Segurança de Tokens**: Devem ser rigorosamente mantidos os mecanismos de segurança implementados (como Cookies HttpOnly) para evitar a exposição e o vazamento do token de API (`auth_token`) no ambiente do cliente (frontend).
+- **Camada de Serviços (Services)**: É estritamente proibido realizar chamadas HTTP diretas (como `fetch`, `axios`, etc.) dentro de arquivos de página (`page.tsx`). Toda comunicação entre o frontend e o backend ou APIs externas deve ser encapsulada e orquestrada de forma exclusiva dentro das classes de serviço correspondentes (`services/`), com as páginas consumindo apenas esses serviços.
+
 ## Fluxo de Trabalho Git e Padrões de Commit
 
 - **GitHub Flow**: Para cada nova especificação ou desenvolvimento de funcionalidade, deve-se criar uma branch separada a partir da branch principal.
@@ -51,4 +57,4 @@ Nenhuma funcionalidade pode ser implementada diretamente no código. O desenvolv
 - Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 - As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou acesso a banco fora de Repositories.
 
-**Versão**: 1.1.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-11
+**Versão**: 1.2.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-12
