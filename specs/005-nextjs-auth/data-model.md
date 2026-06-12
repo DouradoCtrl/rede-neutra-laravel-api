@@ -17,6 +17,7 @@ Esta feature abrange o contrato de Login entre o Next.js e o Laravel e a gestão
 ```json
 {
   "status": "success",
+  "message": "Login realizado com sucesso.",
   "data": {
     "token": "1|abc123token...",
     "user": {
@@ -31,7 +32,7 @@ Esta feature abrange o contrato de Login entre o Next.js e o Laravel e a gestão
 **Response 422 Unprocessable Entity (do Laravel):**
 ```json
 {
-  "message": "The given data was invalid.",
+  "message": "As credenciais fornecidas estão incorretas.",
   "errors": {
     "email": ["O e-mail é obrigatório.", "O e-mail não foi encontrado na base."],
     "password": ["A senha está incorreta."]
@@ -41,6 +42,6 @@ Esta feature abrange o contrato de Login entre o Next.js e o Laravel e a gestão
 
 ### Gestão da Sessão
 
-- **Cookie Local Next.js**: `session_token`
+- **Cookie Local Next.js**: `auth_token`
 - **Atributos**: `HttpOnly`, `Secure` (em produção), `SameSite=Lax`, `Path=/`
 - **Conteúdo**: O string real gerado pelo Laravel Sanctum.
