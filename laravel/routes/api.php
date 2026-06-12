@@ -18,6 +18,8 @@ Route::prefix('v1')->group(function () {
             Route::get('/profile/me', [AuthController::class, 'me']);
             Route::put('/profile/me', [ProfileController::class, 'update']);
             Route::put('/profile/password', [ProfileController::class, 'updatePassword']);
+            Route::get('/profile/tokens', [ProfileController::class, 'tokens']);
+            Route::delete('/profile/tokens/{id}', [ProfileController::class, 'revokeToken']);
         });
         
         Route::prefix('users')->group(function () {

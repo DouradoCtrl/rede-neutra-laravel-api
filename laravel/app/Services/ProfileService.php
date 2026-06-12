@@ -29,4 +29,33 @@ class ProfileService
     {
         $this->userRepository->updatePassword($user, Hash::make($newPassword));
     }
+
+    /**
+     * Retrieve active session tokens for the user.
+     */
+    public function tokens(User $user)
+    {
+        return $user->tokens()->orderBy('created_at', 'desc')->get();
+    }
+
+    /**
+     * Revoke a specific session token for the user.
+     */
+    public function revokeToken(User $user, int $tokenId): string
+    {
+        // Prevent self-revocation
+        if ($user->currentAccessToken()?->id === $tokenId) {
+            return 'self_revocation';
+        }
+
+        $token = $user->tokens()->find($tokenId);
+
+        if (!$token) {
+            return 'not_found';
+        }
+
+        $token->delete();
+
+        return 'success';
+    }
 }

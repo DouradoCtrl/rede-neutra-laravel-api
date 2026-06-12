@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { 
   User, 
-  Mail, 
   KeyRound, 
   Loader2, 
   ShieldAlert,
   Eye,
-  EyeOff
+  EyeOff,
+  MonitorSmartphone,
+  Laptop,
+  Smartphone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
@@ -26,7 +28,9 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import { userService } from "@/services/userService";
+import type { UserToken } from "@/services/userService";
 
 type InfoFieldErrors = {
   name?: string;
@@ -63,6 +67,42 @@ export default function MeuPerfilPage() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Sessions State
+  const [tokens, setTokens] = useState<UserToken[]>([]);
+  const [loadingTokens, setLoadingTokens] = useState(false);
+  const [revokingTokenId, setRevokingTokenId] = useState<number | null>(null);
+
+  const loadTokens = async () => {
+    setLoadingTokens(true);
+    try {
+      const data = await userService.getClientTokens();
+      setTokens(data);
+    } catch (err: unknown) {
+      console.error("Erro ao carregar sessões:", err);
+      toast.error("Não foi possível carregar as sessões ativas.");
+    } finally {
+      setLoadingTokens(false);
+    }
+  };
+
+  const handleRevokeToken = async (tokenId: number) => {
+    const confirmRevoke = window.confirm("Tem certeza que deseja encerrar esta sessão? O dispositivo associado será desconectado.");
+    if (!confirmRevoke) return;
+
+    setRevokingTokenId(tokenId);
+    try {
+      await userService.revokeClientToken(tokenId);
+      toast.success("Sessão encerrada com sucesso!");
+      loadTokens();
+    } catch (err: unknown) {
+      console.error("Erro ao revogar sessão:", err);
+      const error = err as { message?: string };
+      toast.error(error.message || "Erro ao encerrar sessão.");
+    } finally {
+      setRevokingTokenId(null);
+    }
+  };
+
   // Fetch user details on mount
   useEffect(() => {
     async function loadProfile() {
@@ -70,15 +110,47 @@ export default function MeuPerfilPage() {
         const profile = await userService.getClientProfile();
         setName(profile.name || "");
         setEmail(profile.email || "");
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Erro ao carregar perfil:", err);
         toast.error("Não foi possível carregar os dados do perfil.");
       } finally {
         setPageLoading(false);
       }
     }
+    async function initTokens() {
+      await Promise.resolve();
+      loadTokens();
+    }
     loadProfile();
+    initTokens();
   }, []);
+
+  const getDeviceIcon = (userAgent: string) => {
+    const ua = userAgent.toLowerCase();
+    if (ua.includes("chrome") || ua.includes("firefox") || ua.includes("safari") || ua.includes("edge") || ua.includes("opera")) {
+      if (ua.includes("mobile") || ua.includes("android") || ua.includes("iphone") || ua.includes("ipad")) {
+        return <Smartphone className="h-4 w-4" />;
+      }
+      return <Laptop className="h-4 w-4" />;
+    }
+    return <MonitorSmartphone className="h-4 w-4" />;
+  };
+
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "Nunca";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return dateString;
+    }
+  };
 
   const handleInfoInputChange = (setter: (value: string) => void, field: keyof InfoFieldErrors) => (e: ChangeEvent<HTMLInputElement>) => {
     setter(e.target.value);
@@ -106,15 +178,16 @@ export default function MeuPerfilPage() {
       
       // Refresh the page to update header/sidebar user data
       router.refresh();
-    } catch (err: any) {
-      if (err.status === 422 && err.errors) {
+    } catch (err: unknown) {
+      const error = err as { status?: number; message?: string; errors?: Record<string, string[]> };
+      if (error.status === 422 && error.errors) {
         const mappedErrors: InfoFieldErrors = {};
-        if (err.errors.name) mappedErrors.name = err.errors.name[0];
-        if (err.errors.email) mappedErrors.email = err.errors.email[0];
+        if (error.errors.name) mappedErrors.name = error.errors.name[0];
+        if (error.errors.email) mappedErrors.email = error.errors.email[0];
         setInfoErrors(mappedErrors);
-        toast.error(err.message || "Erro de validação nos campos.");
+        toast.error(error.message || "Erro de validação nos campos.");
       } else {
-        toast.error(err.message || "Erro ao atualizar dados cadastrais.");
+        toast.error(error.message || "Erro ao atualizar dados cadastrais.");
       }
     } finally {
       setIsSavingInfo(false);
@@ -142,16 +215,17 @@ export default function MeuPerfilPage() {
       setShowCurrentPassword(false);
       setShowNewPassword(false);
       setShowConfirmPassword(false);
-    } catch (err: any) {
-      if (err.status === 422 && err.errors) {
+    } catch (err: unknown) {
+      const error = err as { status?: number; message?: string; errors?: Record<string, string[]> };
+      if (error.status === 422 && error.errors) {
         const mappedErrors: PasswordFieldErrors = {};
-        if (err.errors.current_password) mappedErrors.current_password = err.errors.current_password[0];
-        if (err.errors.password) mappedErrors.password = err.errors.password[0];
-        if (err.errors.password_confirmation) mappedErrors.password_confirmation = err.errors.password_confirmation[0];
+        if (error.errors.current_password) mappedErrors.current_password = error.errors.current_password[0];
+        if (error.errors.password) mappedErrors.password = error.errors.password[0];
+        if (error.errors.password_confirmation) mappedErrors.password_confirmation = error.errors.password_confirmation[0];
         setPasswordErrors(mappedErrors);
-        toast.error(err.message || "Erro de validação nos campos.");
+        toast.error(error.message || "Erro de validação nos campos.");
       } else {
-        toast.error(err.message || "Erro ao atualizar senha.");
+        toast.error(error.message || "Erro ao atualizar senha.");
       }
     } finally {
       setIsSavingPassword(false);
@@ -209,7 +283,7 @@ export default function MeuPerfilPage() {
 
       <Tabs defaultValue="info" className="w-full space-y-6">
         {/* Menu de Abas Horizontal */}
-        <TabsList className="grid w-full grid-cols-2 max-w-[400px]">
+        <TabsList className="grid w-full grid-cols-3 max-w-[550px]">
           <TabsTrigger value="info" className="flex items-center gap-2">
             <User className="h-4 w-4" />
             <span>Dados do Usuário</span>
@@ -217,6 +291,10 @@ export default function MeuPerfilPage() {
           <TabsTrigger value="password" className="flex items-center gap-2">
             <KeyRound className="h-4 w-4" />
             <span>Alterar Senha</span>
+          </TabsTrigger>
+          <TabsTrigger value="sessions" className="flex items-center gap-2" onClick={loadTokens}>
+            <MonitorSmartphone className="h-4 w-4" />
+            <span>Sessões</span>
           </TabsTrigger>
         </TabsList>
 
@@ -407,6 +485,74 @@ export default function MeuPerfilPage() {
                 </div>
               </CardContent>
             </form>
+          </Card>
+        </TabsContent>
+
+        {/* Conteúdo de Sessões Ativas */}
+        <TabsContent value="sessions" className="mt-0 outline-hidden">
+          <Card className="border-border shadow-sm bg-card/60 backdrop-blur-sm transition-all duration-300 hover:shadow-md hover:bg-card">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <MonitorSmartphone className="h-5 w-5 text-primary" />
+                <CardTitle>Sessões Ativas</CardTitle>
+              </div>
+              <CardDescription>
+                Gerencie os dispositivos onde sua conta está conectada no momento.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {loadingTokens ? (
+                <div className="flex flex-col gap-4 py-4">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : tokens.length === 0 ? (
+                <p className="text-sm text-muted-foreground py-4 text-center">Nenhuma sessão ativa encontrada.</p>
+              ) : (
+                <div className="divide-y divide-border">
+                  {tokens.map((token) => (
+                    <div key={token.id} className="flex items-center justify-between py-3.5 first:pt-0 last:pb-0">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-muted rounded-lg text-muted-foreground mt-0.5">
+                          {getDeviceIcon(token.name)}
+                        </div>
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-sm block max-w-[280px] sm:max-w-md truncate" title={token.name}>
+                              {token.name}
+                            </span>
+                            {token.is_current && (
+                              <Badge variant="secondary" className="bg-primary/15 text-primary border-transparent hover:bg-primary/20 text-[10px] py-0 px-2 font-semibold">
+                                Este Dispositivo
+                              </Badge>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            Criado em: {formatDate(token.created_at)} • Último uso: {formatDate(token.last_used_at)}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {!token.is_current && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-destructive hover:text-destructive hover:bg-destructive/10 h-8 px-3"
+                          onClick={() => handleRevokeToken(token.id)}
+                          disabled={revokingTokenId === token.id}
+                        >
+                          {revokingTokenId === token.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            "Revogar"
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
