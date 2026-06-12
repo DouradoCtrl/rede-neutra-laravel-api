@@ -56,7 +56,7 @@ export default async function AuthenticatedLayout({
         <div className="relative z-10 flex flex-col flex-1 w-full">
           <Header />
           
-          <div className="flex-1 p-6 md:p-10">
+          <div className="flex-1 p-4 lg:p-6">
             {children}
           </div>
         </div>
