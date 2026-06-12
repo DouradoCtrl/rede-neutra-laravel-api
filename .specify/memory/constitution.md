@@ -1,9 +1,9 @@
 <!--
 Sync Impact Report
-- Version change: 1.1.0 → 1.2.0
-- List of modified principles: N/A
-- Added sections:
-  - VI. Desenvolvimento Frontend Next.js e Segurança (New principle on Next.js componentization, Shadcn/Radix UI usage, token security, and strict service-based communication)
+- Version change: 1.2.0 → 1.3.0
+- List of modified principles:
+  - VI. Desenvolvimento Frontend Next.js e Segurança (Updated to formally document the communication flow page -> services -> next-api BFF -> laravel and specify that the BFF does not perform additional validations, delegating all validation responsibilities to Laravel and returning the responses directly)
+- Added sections: N/A
 - Removed sections: N/A
 - Templates requiring updates: N/A
 - Follow-up TODOs: N/A
@@ -38,6 +38,8 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 - **Desacoplamento de Componentes (UI)**: O visual do frontend deve ser construído de forma estritamente desacoplada em componentes reutilizáveis, priorizando o uso dos componentes primitivos oficiais do **Shadcn UI** (baseados em **Radix UI**).
 - **Segurança de Tokens**: Devem ser rigorosamente mantidos os mecanismos de segurança implementados (como Cookies HttpOnly) para evitar a exposição e o vazamento do token de API (`auth_token`) no ambiente do cliente (frontend).
 - **Camada de Serviços (Services)**: É estritamente proibido realizar chamadas HTTP diretas (como `fetch`, `axios`, etc.) dentro de arquivos de página (`page.tsx`). Toda comunicação entre o frontend e o backend ou APIs externas deve ser encapsulada e orquestrada de forma exclusiva dentro das classes de serviço correspondentes (`services/`), com as páginas consumindo apenas esses serviços.
+- **Fluxo de Comunicação Unidirecional (BFF)**: A arquitetura de comunicação deve seguir estritamente o fluxo sequencial: `Página (page.tsx)` ➔ `Serviço (service)` ➔ `API do Next.js (BFF / Route Handler)` ➔ `API do Laravel`.
+- **Validação Delegada ao Laravel**: A API do Next.js (BFF) atua apenas como um proxy seguro. Não é necessário realizar validações adicionais de dados ou de resposta na camada da API do Next.js, pois a validação de regras de negócio e de entrada é responsabilidade exclusiva da API do Laravel. As respostas do Laravel (mensagens de erro, validações e dados) devem ser retornadas e repassadas diretamente pelo BFF para o frontend sem alterações.
 
 ## Fluxo de Trabalho Git e Padrões de Commit
 
@@ -57,4 +59,4 @@ O desenvolvimento da camada de frontend em Next.js deve obrigatoriamente seguir 
 - Todas as implementações devem estar em conformidade com as restrições acima, e os testes integrados deverão ser desenvolvidos de forma a validar as funcionalidades isoladas nessas camadas.
 - As revisões de código devem usar esta constituição como *checkpoint* para evitar vazamento de lógica de negócio para Controllers ou acesso a banco fora de Repositories.
 
-**Versão**: 1.2.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-12
+**Versão**: 1.3.0 | **Ratificada**: 2026-06-11 | **Última Atualização**: 2026-06-12
