@@ -57,6 +57,8 @@ Como administrador do sistema, desejo garantir que as credenciais do usuário se
 - **FR-006**: O sistema DEVE redirecionar o usuário para uma página restrita (ou em branco temporariamente) após o login bem-sucedido.
 - **FR-007**: A recuperação de senha ("Esqueci minha senha") NÃO FAZ PARTE do escopo atual e será tratada como funcionalidade futura.
 - **FR-008**: O sistema DEVE redirecionar o usuário para a página `/dashboard` após o login, que servirá como o futuro painel principal (atualmente em branco, mas protegida por autenticação).
+- **FR-009**: O fluxo de comunicação da camada de frontend deve obrigatoriamente seguir a arquitetura sequencial: Página (`page.tsx`) ➔ Serviço (`service`) ➔ API do Next.js (BFF / Route Handler) ➔ API do Laravel.
+- **FR-010**: A API do Next.js (BFF) atuará estritamente como um proxy seguro, sendo totalmente dispensada de realizar validação de dados de entrada ou de resposta, delegando toda e qualquer validação para o Laravel e retornando suas respostas diretamente para o frontend.
 
 ### Key Entities
 

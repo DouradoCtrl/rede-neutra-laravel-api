@@ -57,6 +57,8 @@ Como usuário autenticado, quero visualizar o meu avatar na barra lateral de nav
 - **FR-004**: O sistema MUST exibir o avatar e o identificador do usuário conectado na parte inferior da barra lateral.
 - **FR-005**: Ao clicar no avatar do usuário, um menu flutuante MUST ser exibido exibindo as opções de navegação para a página de "Meu Perfil" (`/meu-perfil`) e a ação de "Sair".
 - **FR-006**: A ação "Sair" do menu do avatar MUST encerrar a sessão autenticada do usuário ativo.
+- **FR-007**: O fluxo de comunicação da camada de frontend deve obrigatoriamente seguir a arquitetura sequencial: Página (`page.tsx`) ➔ Serviço (`service`) ➔ API do Next.js (BFF / Route Handler) ➔ API do Laravel.
+- **FR-008**: A API do Next.js (BFF) atuará estritamente como um proxy seguro, sendo totalmente dispensada de realizar validação de dados de entrada ou de resposta, delegando toda e qualquer validação para o Laravel e retornando suas respostas diretamente para o frontend.
 
 ### Key Entities
 
