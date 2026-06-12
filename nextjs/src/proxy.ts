@@ -8,13 +8,22 @@ export function proxy(request: NextRequest) {
   const isProtectedRoute =
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/usuarios") ||
-    pathname.startsWith("/telecom");
+    pathname.startsWith("/telecom") ||
+    pathname.startsWith("/meu-perfil");
   const isAuthRoute = pathname === "/login";
 
   // Se acessar a rota raiz '/', redireciona com base na autenticação
   if (pathname === "/") {
     const targetUrl = new URL(token ? "/dashboard" : "/login", request.url);
     return NextResponse.redirect(targetUrl);
+  }
+
+  // Se acessar a tela de login com o parâmetro de sessão expirada, remove o cookie e deixa carregar o login
+  const sessionExpired = request.nextUrl.searchParams.get("session_expired") === "true";
+  if (isAuthRoute && sessionExpired) {
+    const response = NextResponse.next();
+    response.cookies.delete("auth_token");
+    return response;
   }
 
   // Se o usuário não está autenticado e tenta acessar rota protegida, redireciona para /login
@@ -39,6 +48,7 @@ export const config = {
     "/dashboard/:path*",
     "/usuarios/:path*",
     "/telecom/:path*",
+    "/meu-perfil/:path*",
     "/login",
   ],
 };

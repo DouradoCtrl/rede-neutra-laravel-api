@@ -60,7 +60,10 @@ export const userService = {
     });
 
     if (!response.ok) {
-      throw new Error("Falha ao obter perfil do usuário no servidor.");
+      throw {
+        status: response.status,
+        message: "Falha ao obter perfil do usuário no servidor.",
+      };
     }
 
     const json = (await response.json()) as MeResponse;
@@ -79,6 +82,10 @@ export const userService = {
     });
 
     if (!response.ok) {
+      if (response.status === 401 && typeof window !== "undefined") {
+        window.location.href = "/login?session_expired=true";
+        return new Promise<never>(() => {});
+      }
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || "Falha ao obter perfil do usuário no cliente.");
     }
@@ -161,6 +168,10 @@ export const userService = {
     const responseData = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+      if (response.status === 401 && typeof window !== "undefined") {
+        window.location.href = "/login?session_expired=true";
+        return new Promise<never>(() => {});
+      }
       throw {
         status: response.status,
         message: responseData.message || "Falha ao atualizar perfil do usuário.",
@@ -187,6 +198,10 @@ export const userService = {
     const responseData = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+      if (response.status === 401 && typeof window !== "undefined") {
+        window.location.href = "/login?session_expired=true";
+        return new Promise<never>(() => {});
+      }
       throw {
         status: response.status,
         message: responseData.message || "Falha ao atualizar senha do usuário.",
@@ -213,7 +228,10 @@ export const userService = {
     });
 
     if (!response.ok) {
-      throw new Error("Falha ao obter tokens de sessão no servidor.");
+      throw {
+        status: response.status,
+        message: "Falha ao obter tokens de sessão no servidor.",
+      };
     }
 
     const json = (await response.json()) as UserTokensResponse;
@@ -259,6 +277,10 @@ export const userService = {
     });
 
     if (!response.ok) {
+      if (response.status === 401 && typeof window !== "undefined") {
+        window.location.href = "/login?session_expired=true";
+        return new Promise<never>(() => {});
+      }
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || "Falha ao obter tokens de sessão no cliente.");
     }
@@ -281,6 +303,10 @@ export const userService = {
     const responseData = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+      if (response.status === 401 && typeof window !== "undefined") {
+        window.location.href = "/login?session_expired=true";
+        return new Promise<never>(() => {});
+      }
       throw {
         status: response.status,
         message: responseData.message || "Falha ao revogar sessão.",

@@ -22,7 +22,7 @@ export default async function AuthenticatedLayout({
     user = await userService.getProfile(token);
   } catch (error) {
     console.error("Erro ao obter perfil do usuário no layout autenticado:", error);
-    redirect("/login");
+    redirect("/login?session_expired=true");
   }
 
   return (

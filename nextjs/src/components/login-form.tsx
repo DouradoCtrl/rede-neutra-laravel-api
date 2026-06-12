@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -10,15 +10,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authService } from "@/services/authService";
 
+export interface LoginFormProps extends React.ComponentProps<"div"> {
+  sessionExpired?: boolean;
+}
+
 export function LoginForm({
   className,
+  sessionExpired,
   ...props
-}: React.ComponentProps<"div">) {
+}: LoginFormProps) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (sessionExpired) {
+      const timer = setTimeout(() => {
+        toast.error("Sua sessão expirou. Por favor, faça login novamente.");
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [sessionExpired]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,11 +43,12 @@ export function LoginForm({
       const res = await authService.loginClient({ email, password });
       toast.success(res.message || "Login realizado!");
       router.push("/dashboard");
-    } catch (err: any) {
-      if (err.status === 422) {
-        setErrors(err.errors || {});
+    } catch (err: unknown) {
+      const error = err as { status?: number; message?: string; errors?: Record<string, string[]> };
+      if (error.status === 422) {
+        setErrors(error.errors || {});
       }
-      toast.error(err.message || "Erro inesperado no login.");
+      toast.error(error.message || "Erro inesperado no login.");
     } finally {
       setIsLoading(false);
     }
