@@ -41,4 +41,24 @@ export const userService = {
     const json = (await response.json()) as MeResponse;
     return json.data;
   },
+
+  /**
+   * Fetches the user profile from the local Next.js BFF proxy (client-side).
+   */
+  async getClientProfile(): Promise<UserProfile> {
+    const response = await fetch("/api/auth/me", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Falha ao obter perfil do usuário no cliente.");
+    }
+
+    const json = (await response.json()) as MeResponse;
+    return json.data;
+  },
 };

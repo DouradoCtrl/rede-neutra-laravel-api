@@ -75,6 +75,32 @@ export const authService = {
     }
 
     return data as LogoutResponse;
+  },
+
+  /**
+   * Performs login by calling the local Next.js API proxy (client-side).
+   */
+  async loginClient(credentials: LoginCredentials): Promise<{ success: boolean; message: string }> {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        message: data.message || 'Falha ao realizar login.',
+        errors: data.errors,
+      };
+    }
+
+    return data;
   }
 };
 

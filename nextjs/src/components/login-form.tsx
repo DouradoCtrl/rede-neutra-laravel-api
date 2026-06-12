@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authService } from "@/services/authService";
 
 export function LoginForm({
   className,
@@ -25,26 +26,14 @@ export function LoginForm({
     setErrors({});
     
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        if (res.status === 422) {
-          setErrors(data.errors || {});
-        }
-        toast.error(data.message || "Falha ao realizar login. Tente novamente.");
-        return;
-      }
-      
+      await authService.loginClient({ email, password });
       toast.success("Login realizado com sucesso!");
       router.push("/dashboard");
-    } catch (err) {
-      toast.error("Erro inesperado no login.");
+    } catch (err: any) {
+      if (err.status === 422) {
+        setErrors(err.errors || {});
+      }
+      toast.error(err.message || "Erro inesperado no login.");
     } finally {
       setIsLoading(false);
     }
